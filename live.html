@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Live Stream</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mux.js/6.3.0/mux.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mux/mux-player"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mux/mux-player"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
@@ -433,7 +433,7 @@
         -->
         <mux-player
           id="muxPlayer"
-          playback-id="YOUR_PLAYBACK_ID"
+          playback-id="TewjpLNLyv802huM3gVvXv4Nzs8XAUgdZXQ502NYQusmk"
           stream-type="live"
           autoplay="muted"
           muted
@@ -489,17 +489,19 @@
 
 <script>
   // ─────────────────────────────────────────────
-  //  CONFIG — update these values
+  //  CONFIG -- update these values
   // ─────────────────────────────────────────────
 const CONFIG = {
   playbackId: 'YOUR_PLAYBACK_ID',
   streamTitle: 'Live Stream',
   pollInterval: 8000,
-  statusEndpoint: 'https://your-app-name.onrender.com/api/stream-status',
+  statusEndpoint: 'sportsite-79ty.onrender.com.
+',
 };
 
 // ── WebSocket real-time chat ──
-const WS_URL = 'wss://your-app-name.onrender.com';
+const WS_URL = 'sportsite-79ty.onrender.com.
+';
 let socket;
 
 function connectWebSocket() {
@@ -570,9 +572,10 @@ function sendMsg() {
   const input = document.getElementById('chatInput');
   const text = input.value.trim();
   if (!text || !username) return;
-  // Don't call addChatMsg here — the WS broadcast handles it
+  // Don't call addChatMsg here -- the WS broadcast handles it
   input.value = '';
-  fetch('https://your-app-name.onrender.com/api/chat', {
+  fetch('sportsite-79ty.onrender.com.
+', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, text })
@@ -580,7 +583,7 @@ function sendMsg() {
 }
 
 
-  }
+  
 
   function addChatMsg(name, text) {
     const wrap = document.getElementById('chatMessages');
@@ -648,7 +651,7 @@ function sendMsg() {
       const data = await res.json();
       updateStreamUI(data.live, data.viewers || 0, data.title);
     } catch {
-      // backend not connected yet — show offline state silently
+      // backend not connected yet -- show offline state silently
       updateStreamUI(false, 0, 'Waiting for stream…');
     }
   }
