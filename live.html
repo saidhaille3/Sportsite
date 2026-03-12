@@ -499,7 +499,8 @@ const CONFIG = {
 };
 
 // ── WebSocket real-time chat ──
-const WS_URL = 'https://sportsite-79ty.onrender.com/api/stream-status';
+
+const WS_URL = 'wss://sportsite-79ty.onrender.com';
 let socket;
 
 function connectWebSocket() {
@@ -572,7 +573,8 @@ function sendMsg() {
   if (!text || !username) return;
   // Don't call addChatMsg here -- the WS broadcast handles it
   input.value = '';
-  fetch('https://sportsite-79ty.onrender.com/api/stream-status', {
+
+fetch('https://sportsite-79ty.onrender.com/api/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, text })
