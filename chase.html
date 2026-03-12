@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Trade of the Decade: Chase to the Eagles | The Lithouse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        :root {
+            --glass: rgba(0, 0, 0, 0.03);
+            --glass-border: rgba(0, 0, 0, 0.08);
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #ffffff; 
+            color: #111111; 
+            transition: background-color 0.4s ease;
+        }
+        .dark body { background-color: #0a0a0a; color: #f4f4f4; }
+        
+        .fire-text {
+            background: linear-gradient(to bottom, #fff 20%, #ff9900 50%, #ff3c00 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.125rem;
+        }
+
+        .reaction-btn {
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .reaction-btn:active { transform: scale(1.4); }
+
+        .ios-glass {
+            background: var(--glass);
+            backdrop-filter: blur(20px) saturate(160%);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .dark .ios-glass {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        progress::-webkit-progress-bar { background-color: transparent; }
+        progress::-webkit-progress-value { background-color: #dc2626; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <progress id="readingProgress" class="fixed top-0 left-0 w-full h-1 z-[100] appearance-none border-none bg-transparent" value="0" max="100"></progress>
+
+    <nav class="fixed top-0 w-full z-50 px-4 py-3 flex justify-between items-center bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-black/5 dark:border-white/10">
+        <a href="/" class="flex items-center gap-2">
+            <span class="fire-text text-xl font-black tracking-tighter">Lithouse</span>
+        </a>
+        <div class="flex items-center gap-4">
+            <button onclick="sharePage()" class="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition">
+                <i class="fa-solid fa-share-nodes text-sm"></i>
+            </button>
+            <button id="themeToggle" onclick="toggleDarkMode()" class="p-2">
+                <i class="fa-solid fa-moon dark:hidden"></i>
+                <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header class="pt-24 pb-12 px-6 max-w-4xl mx-auto">
+        <div class="mb-6">
+            <span class="bg-red-600 text-white text-[10px] font-black uppercase tracking-[0.3em] px-3 py-1 rounded-full">Breaking Analysis</span>
+            <span class="ml-3 text-[10px] font-bold text-black/40 dark:text-white/40 uppercase tracking-widest">8 Min Read • Feb 20, 2026</span>
+        </div>
+        
+        <h1 class="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8 dark:text-white">
+            The Trade of the <br/><span class="text-black/20 dark:text-white/20">Decade: Chase to Philly</span>
+        </h1>
+
+        <div class="flex items-center gap-4 border-y border-black/5 dark:border-white/5 py-6">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop" class="w-12 h-12 rounded-full grayscale" alt="Author">
+            <div>
+                <p class="text-sm font-black uppercase tracking-widest">By Rev Sermon</p>
+                <p class="text-[10px] font-bold opacity-40 uppercase">Lead Analyst, The Lithouse</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 pb-24">
+        
+        <div class="rounded-[2.5rem] overflow-hidden mb-12 shadow-2xl">
+            <img src="images/trade.jpeg" class="w-full h-auto" alt="Jamar Chase Trade">
+            <p class="text-[10px] p-4 text-center opacity-40 italic uppercase tracking-widest">Photography by Lithouse Originals</p>
+        </div>
+
+        <article class="article-content font-medium text-black/80 dark:text-white/80">
+            <p class="text-xl md:text-2xl font-bold text-black dark:text-white mb-10 leading-snug">
+                The notification that shook the league didn't come with a warning. At 4:14 PM EST, the Cincinnati Bengals agreed to send Ja’Marr Chase to the Philadelphia Eagles in exchange for a haul that redefines "All-In."
+            </p>
+
+            <p>It’s the move we were told would never happen. Ja’Marr Chase, the crown jewel of the Queen City, is heading to the City of Brotherly Love. For the Eagles, it creates a vertical threat hierarchy that feels illegal in a salary-cap era. For the Bengals, it signals the end of an era and the start of a massive identity shift around Joe Burrow.</p>
+
+            <h2 class="text-3xl font-black uppercase tracking-tighter my-10 dark:text-white">Why the Eagles Pulled the Trigger</h2>
+            
+            <p>The Eagles didn't just want a receiver; they wanted a game-breaker who demands double coverage on every snap. Pairing Chase with the existing core creates a mathematical nightmare for defensive coordinators. How do you shade a safety toward Chase without leaving the seam wide open? You can't.</p>
+
+            <blockquote class="my-12 p-8 ios-glass rounded-3xl border-l-4 border-red-600 italic text-2xl font-bold text-black dark:text-white">
+                "This isn't just a trade; it's an arms race. The Eagles just dropped a nuke on the NFC East."
+            </blockquote>
+
+            <p>The compensation involved includes two first-round picks and a veteran starter, but for a franchise that views their championship window as "Wide Open," the price was secondary to the prize.</p>
+        </article>
+
+        <section class="mt-20 pt-10 border-t border-black/5 dark:border-white/10">
+            <h3 class="text-[10px] font-black uppercase tracking-[0.4em] mb-8 opacity-40">How are you feeling?</h3>
+            <div class="flex gap-4">
+                <button onclick="react('🔥')" class="reaction-btn flex flex-col items-center gap-2 p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-black/5 dark:border-white/10 flex-1">
+                    <span class="text-2xl">🔥</span>
+                    <span class="text-[10px] font-black" id="count-fire">1.2k</span>
+                </button>
+                <button onclick="react('🤯')" class="reaction-btn flex flex-col items-center gap-2 p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-black/5 dark:border-white/10 flex-1">
+                    <span class="text-2xl">🤯</span>
+                    <span class="text-[10px] font-black" id="count-shock">842</span>
+                </button>
+                <button onclick="react('📉')" class="reaction-btn flex flex-col items-center gap-2 p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-black/5 dark:border-white/10 flex-1">
+                    <span class="text-2xl">📉</span>
+                    <span class="text-[10px] font-black" id="count-down">156</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="mt-20">
+            <h3 class="text-2xl font-black uppercase tracking-tighter mb-8 dark:text-white">The Lounge <span class="text-black/20 dark:text-white/20">(Comments)</span></h3>
+            
+            <div class="mb-10">
+                <textarea id="commentInput" placeholder="WHAT'S YOUR TAKE?..." class="w-full bg-gray-50 dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-2xl p-6 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-red-600 transition min-h-[120px] dark:text-white"></textarea>
+                <button onclick="postComment()" class="mt-4 bg-black dark:bg-white dark:text-black text-white px-8 py-3 rounded-xl font-black uppercase text-[10px] tracking-widest hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition">Post Take</button>
+            </div>
+
+            <div id="commentsList" class="space-y-6">
+                <div class="p-6 rounded-3xl bg-gray-50 dark:bg-white/5 border border-black/5 dark:border-white/10">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-[10px] font-black uppercase tracking-widest text-red-600">PhillySpecial_99</span>
+                        <span class="text-[9px] font-bold opacity-30 uppercase">2 Hours Ago</span>
+                    </div>
+                    <p class="text-sm font-medium opacity-80">This is absolutely insane. How do you even defend this? GGs to the rest of the NFC East.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-50 dark:bg-black border-t border-black/5 dark:border-white/10 py-12 text-center">
+        <p class="text-[10px] font-black text-black/20 dark:text-white/20 uppercase tracking-[0.5em]">© 2026 Lithouse Network</p>
+    </footer>
+
+    <script>
+        // Progress Bar Logic
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("readingProgress").value = scrolled;
+        };
+
+        // Dark Mode Logic
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+
+        // Share API
+        async function sharePage() {
+            const shareData = {
+                title: 'Chase to the Eagles | The Lithouse',
+                text: 'A stunning WR swap changes the landscape of the NFC.',
+                url: window.location.href
+            };
+            try {
+                await navigator.share(shareData);
+            } catch (err) {
+                alert('Copied link to clipboard!');
+                navigator.clipboard.writeText(window.location.href);
+            }
+        }
+
+        // Reactions
+        function react(emoji) {
+            // Simplified logic to increment visually
+            console.log("Reacted with: " + emoji);
+        }
+
+        // Comments
+        function postComment() {
+            const input = document.getElementById('commentInput');
+            const list = document.getElementById('commentsList');
+            if(!input.value) return;
+
+            const newComment = document.createElement('div');
+            newComment.className = "p-6 rounded-3xl bg-white dark:bg-white/10 border border-black/5 dark:border-white/10 shadow-sm animate-pulse";
+            newComment.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-amber-500">YOU (GUEST)</span>
+                    <span class="text-[9px] font-bold opacity-30 uppercase">Just Now</span>
+                </div>
+                <p class="text-sm font-medium opacity-80">${input.value}</p>
+            `;
+            list.prepend(newComment);
+            input.value = "";
+            setTimeout(() => newComment.classList.remove('animate-pulse'), 1000);
+        }
+    </script>
+</body>
+</html>

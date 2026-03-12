@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Core | Lithouse Network</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+        body { font-family: 'Roboto', sans-serif; background-color: #111; color: #fff; }
+        .nba-blue { color: #00471b; } /* Custom team accents */
+        .nba-red { color: #c8102e; }
+        .bg-nba-dark { background-color: #1a1a1a; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        
+        /* Subtle Lithouse Fire Touch */
+        .fire-brand { color: #ff4500; font-weight: 900; letter-spacing: -1px; }
+    </style>
+</head>
+<body class="antialiased">
+
+<nav class="bg-black text-[10px] py-2 px-6 flex justify-between items-center border-b border-white/10 uppercase font-bold tracking-widest text-zinc-500">
+    <div class="flex gap-4">
+        <a href="#" class="text-white hover:text-orange-500">Lithouse Talent</a>
+        <a href="#">Tickets</a>
+        <a href="#">Shop</a>
+    </div>
+    <div class="flex gap-4 items-center">
+        <span class="text-green-500">● Live Games</span>
+        <a href="#" class="bg-zinc-800 px-3 py-1 rounded text-white">Sign In</a>
+    </div>
+</nav>
+
+<header class="sticky top-0 z-50 bg-black/95 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-[1400px] mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-8">
+            <span class="fire-brand text-2xl uppercase">Lithouse</span>
+            <div class="hidden lg:flex gap-6 text-sm font-bold uppercase">
+                <a href="#" class="hover:text-orange-500">Scores</a>
+                <a href="#" class="hover:text-orange-500">Schedule</a>
+                <a href="#" class="hover:text-orange-500">News</a>
+                <a href="#" class="hover:text-orange-500">Stats</a>
+                <a href="#" class="hover:text-orange-500 text-orange-500">War Room</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <i class="fa-solid fa-magnifying-glass text-zinc-400"></i>
+            <i class="fa-solid fa-bars text-xl"></i>
+        </div>
+    </div>
+</header>
+
+<div class="bg-zinc-900 border-b border-white/5 py-3 overflow-x-auto no-scrollbar">
+    <div class="flex gap-1 px-6 min-w-max">
+        <div class="w-48 bg-black p-3 border-r-2 border-orange-600">
+            <div class="flex justify-between text-[10px] font-bold text-red-500 mb-1">
+                <span>3Q 4:12</span>
+                <span class="animate-pulse">●</span>
+            </div>
+            <div class="space-y-1">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase">OKC</span>
+                    <span class="text-sm font-black">94</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase text-zinc-400">DEN</span>
+                    <span class="text-sm font-black text-zinc-400">82</span>
+                </div>
+            </div>
+        </div>
+        <div class="w-48 bg-black/40 p-3 border-r border-white/5">
+            <div class="text-[10px] font-bold text-zinc-500 mb-1 uppercase">7:30 PM ET</div>
+            <div class="space-y-1">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase">MIL</span>
+                    <span class="text-xs text-zinc-500">22-29</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase">MIA</span>
+                    <span class="text-xs text-zinc-500">31-19</span>
+                </div>
+            </div>
+        </div>
+        <div class="w-48 bg-black/40 p-3 border-r border-white/5">
+            <div class="text-[10px] font-bold text-zinc-500 mb-1 uppercase">Final</div>
+            <div class="space-y-1">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase">LAL</span>
+                    <span class="text-sm font-black">105</span>
+                </div>
+                <div class="flex justify-between items-center text-zinc-500">
+                    <span class="text-xs font-bold uppercase">BKN</span>
+                    <span class="text-sm font-black">98</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="max-w-[1400px] mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <div class="lg:col-span-8">
+        <div class="relative group cursor-pointer overflow-hidden rounded-sm">
+            <img src="https://images.unsplash.com/photo-1504450758481-7338eba7524a?auto=format&fit=crop&q=80&w=1200" class="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div class="absolute bottom-0 p-8">
+                <span class="bg-orange-600 text-white text-[10px] font-black px-2 py-1 uppercase mb-4 inline-block">Breaking News</span>
+                <h2 class="text-5xl font-black uppercase tracking-tighter leading-tight mb-4">The Giannis Trade <br>Package: 5 Shocking Details</h2>
+                <p class="text-zinc-300 max-w-xl text-lg">Inside the internal discussions in Milwaukee as the trade deadline looms. Who is actually on the table?</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            <div class="flex gap-4 border-b border-white/5 pb-6">
+                <div class="w-32 h-32 flex-shrink-0 bg-zinc-800 rounded-sm overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h3 class="font-bold uppercase text-sm leading-tight hover:text-orange-500 cursor-pointer">Wemby records historic 15-block triple double</h3>
+                    <p class="text-zinc-500 text-xs mt-2">2 hours ago</p>
+                </div>
+            </div>
+            <div class="flex gap-4 border-b border-white/5 pb-6">
+                <div class="w-32 h-32 flex-shrink-0 bg-zinc-800 rounded-sm overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1518063319789-7217e6706b04?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h3 class="font-bold uppercase text-sm leading-tight hover:text-orange-500 cursor-pointer">Power Rankings: OKC takes the throne in the West</h3>
+                    <p class="text-zinc-500 text-xs mt-2">5 hours ago</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lg:col-span-4 space-y-8">
+        <div class="bg-zinc-900/50 border border-white/10 p-5 rounded-sm">
+            <div class="flex justify-between items-center mb-6">
+                <h4 class="font-black uppercase text-sm tracking-widest">Western Conference</h4>
+                <a href="#" class="text-[10px] text-zinc-500 hover:text-white uppercase">Full Standings</a>
+            </div>
+            <div class="space-y-3">
+                <div class="flex items-center justify-between text-sm py-2 border-b border-white/5">
+                    <span class="font-bold">1. OKC Thunder</span>
+                    <span class="font-mono">42-10</span>
+                </div>
+                <div class="flex items-center justify-between text-sm py-2 border-b border-white/5">
+                    <span class="font-bold">2. San Antonio</span>
+                    <span class="font-mono">38-14</span>
+                </div>
+                <div class="flex items-center justify-between text-sm py-2 border-b border-white/5 text-zinc-500">
+                    <span>3. Denver Nuggets</span>
+                    <span class="font-mono">35-17</span>
+                </div>
+                <div class="flex items-center justify-between text-sm py-2 border-b border-white/5 text-zinc-500">
+                    <span>4. Phoenix Suns</span>
+                    <span class="font-mono">32-20</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-black border border-orange-600/30 p-5 rounded-sm">
+            <h4 class="font-black uppercase text-xs text-orange-500 tracking-[0.2em] mb-4">Stat Leaders</h4>
+            <div class="flex items-center gap-4 py-4">
+                <div class="w-16 h-16 rounded-full bg-zinc-800 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1519861517483-478462b78e71?auto=format&fit=crop&q=80&w=150" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <p class="text-[10px] font-bold text-zinc-500 uppercase">Points Per Game</p>
+                    <p class="text-xl font-black">Luka Dončić</p>
+                    <p class="text-orange-500 font-bold">34.8</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="mt-20 border-t border-white/10 bg-black py-16 px-6">
+    <div class="max-w-[1400px] mx-auto text-center">
+        <span class="fire-brand text-4xl uppercase mb-8 block">Lithouse</span>
+        <div class="flex justify-center gap-8 text-[10px] font-black uppercase tracking-widest text-zinc-600 mb-8">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Ad Choices</a>
+        </div>
+        <p class="text-[10px] text-zinc-700 uppercase">© 2026 Lithouse Basketball & NBA Properties, Inc.</p>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>iPhone Space Test</title>
+  
+  <script src="https://unpkg.com/livekit-client/dist/livekit-client.umd.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center p-10 min-h-screen">
+  
+  <h1 class="text-2xl font-bold mb-6">Twitter Space Test</h1>
+  
+  <button id="join-btn" onclick="startSpace()" class="bg-blue-600 active:bg-blue-800 px-10 py-4 rounded-full font-bold text-xl shadow-xl">
+    Start Space
+  </button>
+
+  <div id="debug-log" class="mt-10 w-full max-w-md p-4 bg-black border border-gray-700 rounded font-mono text-xs overflow-y-auto h-40">
+    <p class="text-gray-500">> System Ready. Tap Start.</p>
+  </div>
+
+<script>
+  // This helper function puts text into that black box on your screen
+  function log(msg, color = "text-white") {
+    const logger = document.getElementById('debug-log');
+    if (logger) {
+      const p = document.createElement('p');
+      p.className = color;
+      p.innerText = `> ${msg}`;
+      logger.appendChild(p);
+      logger.scrollTop = logger.scrollHeight;
+    }
+  }
+
+  // This runs the moment the page finishes loading
+  window.onload = () => {
+    // We check three different places where the SDK might be hiding
+    const sdk = window.LiveKitClient || window.livekit || (window.LiveKit && window.LiveKit.LiveKitClient);
+    
+    if (sdk) {
+      log("LiveKit SDK found! Ready to go. ✅", "text-green-400");
+    } else {
+      log("SDK still missing. Try refreshing or changing Wi-Fi. ❌", "text-red-500");
+    }
+  };
+
+  async function startSpace() {
+    log("Button clicked...");
+    const joinBtn = document.getElementById('join-btn');
+    
+    // Look for the SDK again right when the button is clicked
+    const lk = window.LiveKitClient || window.livekit;
+
+    if (!lk) {
+      log("FATAL: SDK not loaded. Can't start.", "text-red-500");
+      alert("The LiveKit library didn't load. Are you on a school/work Wi-Fi?");
+      return;
+    }
+
+    try {
+      const { Room, RoomEvent, TokenSource } = lk;
+      const SANDBOX_ID = "lithouse-spaces-2amvdi"; 
+
+      log("Initializing Room...");
+      joinBtn.innerText = "Connecting...";
+      joinBtn.disabled = true;
+
+      const room = new Room({
+        adaptiveStream: true, // Optimizes for mobile data
+        dynacast: true,
+      });
+
+      log("Fetching Token from Sandbox...");
+      const tokenSource = TokenSource.sandboxTokenServer(SANDBOX_ID);
+      const { serverUrl, participantToken } = await tokenSource.fetch({ 
+          roomName: "lithouse-test",
+          participantName: "iPhone-" + Math.floor(Math.random() * 100)
+      });
+
+      log("Connecting to server...");
+      await room.connect(serverUrl, participantToken);
+      
+      log("Connected! Turning on Mic...");
+      await room.localParticipant.setMicrophoneEnabled(true);
+      
+      log("YOU ARE LIVE! 🎙️", "text-green-400");
+      joinBtn.innerText = "LIVE (Tap to Stop)";
+      joinBtn.classList.replace('bg-blue-600', 'bg-red-600');
+
+      // Listen for other people's voices
+      room.on(RoomEvent.TrackSubscribed, (track) => {
+        if (track.kind === 'audio') {
+          log("Heard someone else!");
+          const el = track.attach();
+          document.body.appendChild(el);
+          el.play().catch(e => log("Audio play error: " + e.message));
+        }
+      });
+
+    } catch (err) {
+      log("ERROR: " + err.message, "text-red-500");
+      joinBtn.disabled = false;
+      joinBtn.innerText = "Start Space";
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Room | Lithouse Elite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --gold: #D4AF37; }
+        body { background-color: #050505; color: white; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .video-glow { box-shadow: 0 0 50px -10px rgba(212, 175, 55, 0.2); }
+        .chat-gradient { background: linear-gradient(to top, #050505, transparent); }
+    </style>
+</head>
+<body>
+
+    <div id="theaterMode" class="fixed inset-0 z-[100] bg-black/95 flex flex-col lg:flex-row hidden transition-all duration-500">
+        <button onclick="closeTheater()" class="absolute top-6 right-6 z-[110] text-white/50 hover:text-white transition">
+            <i class="fa-solid fa-xmark text-3xl"></i>
+        </button>
+        
+        <div id="videoStage" class="flex-1 relative flex items-center justify-center bg-black">
+            <div id="liveHUD" class="absolute top-10 left-10 hidden z-10 flex items-center gap-4">
+                <span class="bg-red-600 px-3 py-1 rounded text-[10px] font-black uppercase tracking-widest animate-pulse">Live</span>
+                <span class="glass px-3 py-1 rounded text-[10px] font-bold uppercase"><i class="fa-solid fa-eye mr-2"></i> <span id="liveViewers">1.2M</span></span>
+            </div>
+            <div class="w-full aspect-video video-glow max-w-6xl">
+                <div class="w-full h-full bg-neutral-900 flex items-center justify-center border border-white/10 rounded-2xl relative overflow-hidden">
+                    <i class="fa-solid fa-play text-6xl text-white/20"></i>
+                    </div>
+            </div>
+        </div>
+
+        <div id="liveChat" class="w-full lg:w-[400px] h-full glass border-l border-white/10 flex flex-col hidden">
+            <div class="p-6 border-b border-white/10 flex justify-between">
+                <h3 class="font-black uppercase tracking-widest text-xs">Global Discussion</h3>
+            </div>
+            <div id="chatStream" class="flex-1 overflow-y-auto p-6 space-y-4 flex flex-col-reverse no-scrollbar chat-gradient">
+                </div>
+            <div class="p-6">
+                <input type="text" placeholder="Join the conversation..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-amber-500 transition">
+            </div>
+        </div>
+    </div>
+
+    <div id="mainContent" class="pt-24 pb-20">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            
+            <div class="relative w-full h-[60vh] rounded-[3rem] overflow-hidden mb-20 group cursor-pointer" onclick="launchMedia('vod', 'Lithouse Originals: Legacy')">
+                <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&q=80&w=2000" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                <div class="absolute bottom-12 left-12 max-w-2xl">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="text-amber-500 font-black uppercase text-xs tracking-widest">Masterclass Series</span>
+                        <span class="h-1 w-1 bg-white/30 rounded-full"></span>
+                        <span class="text-white/60 text-xs font-bold uppercase">4K HDR</span>
+                    </div>
+                    <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-6">The <span class="italic text-amber-500">Apex</span></h1>
+                    <div class="flex gap-4">
+                        <button class="bg-white text-black px-10 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:bg-amber-500 transition">Play Now</button>
+                        <button class="glass px-10 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:bg-white/10 transition">+ Watchlist</button>
+                    </div>
+                </div>
+            </div>
+
+            <section class="mb-16">
+                <div class="flex justify-between items-end mb-8">
+                    <h2 class="text-2xl font-black uppercase tracking-tighter italic">Live Studios</h2>
+                    <a href="#" class="text-[10px] font-black uppercase tracking-widest text-amber-500">View All Channels</a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div onclick="launchMedia('live', 'Lounge Live')" class="group relative aspect-video rounded-3xl overflow-hidden cursor-pointer border border-white/5">
+                        <img src="https://images.unsplash.com/photo-1517603920832-734446a61444?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                        <div class="absolute inset-0 p-6 flex flex-col justify-between">
+                            <span class="self-start bg-red-600 px-2 py-1 rounded text-[8px] font-black uppercase">Live</span>
+                            <div>
+                                <h3 class="text-lg font-black uppercase leading-tight">Lounge Morning<br>Broadcast</h3>
+                                <p class="text-[10px] font-bold text-white/50 mt-1 uppercase">12.4K Watching</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </section>
+
+            <section>
+                <div class="flex justify-between items-end mb-8">
+                    <h2 class="text-2xl font-black uppercase tracking-tighter italic">Film Room Library</h2>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div onclick="launchMedia('vod', 'NFL Week 10 Breakdown')" class="group cursor-pointer">
+                        <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-3 border border-white/5">
+                            <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=600" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <div class="h-12 w-12 rounded-full bg-amber-500 flex items-center justify-center text-black">
+                                    <i class="fa-solid fa-play ml-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="text-sm font-black uppercase tracking-tight">Post-Game: Tactical Deep Dive</h4>
+                        <p class="text-[9px] font-bold text-white/40 uppercase tracking-widest">NFL • 42 MIN</p>
+                    </div>
+                    </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        const theater = document.getElementById('theaterMode');
+        const liveHUD = document.getElementById('liveHUD');
+        const liveChat = document.getElementById('liveChat');
+        const chatStream = document.getElementById('chatStream');
+
+        const names = ['Elite_Hooper', 'MoneyLine', 'LIT_Admin', 'CoachK', 'Fanatic_99'];
+        const messages = ['This angle is insane!', 'LITHOUSE DID IT AGAIN.', 'The analytics on this are deep.', 'Who else is watching from NYC?', '🔥🔥🔥🔥'];
+
+        function launchMedia(type, title) {
+            theater.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Lock scrolling
+            
+            if(type === 'live') {
+                liveHUD.classList.remove('hidden');
+                liveChat.classList.remove('hidden');
+                startLiveChat();
+            } else {
+                liveHUD.classList.add('hidden');
+                liveChat.classList.add('hidden');
+            }
+            console.log("Playing: " + title);
+        }
+
+        function closeTheater() {
+            theater.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            clearInterval(chatInterval);
+        }
+
+        let chatInterval;
+        function startLiveChat() {
+            chatInterval = setInterval(() => {
+                const name = names[Math.floor(Math.random() * names.length)];
+                const msg = messages[Math.floor(Math.random() * messages.length)];
+                const div = document.createElement('div');
+                div.innerHTML = `<p class="text-[11px]"><span class="text-amber-500 font-black uppercase mr-2">${name}</span> <span class="text-white/70">${msg}</span></p>`;
+                chatStream.prepend(div);
+                if(chatStream.children.length > 15) chatStream.removeChild(chatStream.lastChild);
+            }, 2500);
+        }
+    </script>
+</body>
+</html>

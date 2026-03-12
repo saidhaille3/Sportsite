@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: livestream-backend
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MUX_TOKEN_ID
+        sync: false
+      - key: MUX_TOKEN_SECRET
+        sync: false
+      - key: MUX_LIVE_STREAM_ID
+        sync: false
+

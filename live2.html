@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Live Stream</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; background: #1a1a1a; color: white; }
+        #video-container { width: 80%; max-width: 800px; margin-top: 20px; border: 2px solid #333; }
+        .status-badge { padding: 5px 10px; border-radius: 4px; background: #444; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>Live Stream Dashboard</h1>
+    <div id="status" class="status-badge">Checking server...</div>
+
+    <div id="video-container">
+        <mux-player
+            stream-type="live"
+            playback-id="PLACEHOLDER"
+            metadata-video-title="My Live Stream"
+            controls
+            style="width: 100%;"
+        ></mux-player>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mux/mux-player"></script>
+    
+    <script>
+        // Simple script to check if our backend is talking
+        fetch('/get-stream-data')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('status').innerText = `Status: ${data.message}`;
+            });
+    </script>
+    <script>
+        const express = require('express');
+const path = require('path');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware to serve static files (HTML/CSS/JS)
+app.use(express.static('public'));
+app.use(express.json());
+
+// A placeholder route for when we eventually connect Mux
+app.get('/get-stream-data', (req, res) => {
+    // For now, we'll return mock data
+    res.json({
+        streamStatus: "offline",
+        message: "Server is ready. Mux integration coming next!"
+    });
+});
+
+app.listen(PORT, () => {
+    console.log(`✅ Server running at http://localhost:${PORT}`);
+});
+
+    </script>
+</body>
+</html>

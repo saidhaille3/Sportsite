@@ -1,0 +1,1694 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lithouse – Where Sports Are Lit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        :root {
+            --glass: rgba(0, 0, 0, 0.03);
+            --glass-border: rgba(0, 0, 0, 0.08);
+        }
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+    
+    body { 
+        font-family: 'Inter', sans-serif; 
+        background-color: #ffffff; 
+        color: #111111; 
+        transition: background-color 0.4s ease, color 0.4s ease;
+        overflow-x: hidden;
+    }
+    
+    .dark body { 
+        background-color: #0a0a0a; 
+        color: #f4f4f4; 
+    }
+
+    /* Hide Moon in Dark Mode */
+    .dark #darkModeToggle {
+        display: none;
+    }
+
+    /* Light Bulb styling for Sidebar */
+    #lightBulbToggle {
+        display: none;
+    }
+
+    .dark #lightBulbToggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+
+    /* Fire text effect */
+    .fire-text {
+        background: linear-gradient(to bottom, #fff 20%, #ff9900 50%, #ff3c00 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        display: inline-block;
+        transition: all 0.4s ease;
+    }
+
+    .dark .fire-text {
+        background: url('/images/flame.mov') center center / cover no-repeat;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    /* Fire text on light backgrounds */
+    .fire-text-dark {
+        background: linear-gradient(to bottom, #cc6600 0%, #ff9900 40%, #ff3c00 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 8px rgba(255, 60, 0, 0.2));
+    }
+
+    /* Glowing Embers */
+    .ember {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: radial-gradient(circle, #ff5f00, #ff0000);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 60;
+        box-shadow: 0 0 8px #ff4500;
+    }
+
+    /* Rising Smoke */
+    .smoke {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: radial-gradient(circle, rgba(150,150,150,0.6) 0%, rgba(50,50,50,0) 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 59;
+        filter: blur(2px);
+    }
+
+    /* Glass adapted for white bg */
+    .ios-glass {
+        background: var(--glass);
+        backdrop-filter: blur(20px) saturate(160%);
+        -webkit-backdrop-filter: blur(20px) saturate(160%);
+        border: 1px solid var(--glass-border);
+        box-shadow: inset 0 1px 1px rgba(255,255,255,0.8), 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .hero-gradient {
+        background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 30%, transparent 100%);
+    }
+    /* Invert logos like TNT in Dark Mode */
+
+
+.dark img[alt="TNT"] {
+filter: invert(1) brightness(2);
+}
+
+    /* Smooth Scroller */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .hover-card {
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .hover-card:hover {
+        transform: translateY(-5px);
+        background: rgba(0, 0, 0, 0.05);
+        border-color: rgba(0, 0, 0, 0.15);
+    }
+
+    /* Play Button Utility */
+    .play-btn-blur {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    /* Nav scroll effect */
+    .nav-scrolled {
+        background: linear-gradient(135deg, rgba(226, 226, 226, 0.6) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(207, 207, 207, 0.6) 100%) !important;
+        backdrop-filter: blur(12px);
+    }
+
+    .dark .nav-scrolled {
+        background: linear-gradient(135deg, rgba(20, 20, 20, 0.7) 0%, rgba(10, 10, 10, 0.7) 100%) !important;
+    }
+
+    /* Dark Mode adjustments */
+    .dark {
+        background: #0a0a0a;
+        color: #ffffff;
+    }
+
+    .dark header, .dark .ios-glass {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: inset 0 1px 1px rgba(255,255,255,0.05), 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .dark .bg-white {
+        background-color: #0a0a0a !important;
+    }
+
+    .dark .text-black, .dark h2, .dark h3 {
+        color: #ffffff !important;
+    }
+
+    .dark .text-black\/50, .dark .text-black\/30 {
+        color: rgba(255, 255, 255, 0.4) !important;
+    }
+
+    .dark .border-black\/5 {
+        border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+</style>
+
+
+</head>
+<body class="antialiased overflow-x-hidden"><!-- Navigation -->
+<nav id="navbar" class="fixed top-0 w-full z-50 silver-nav px-3 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+        <img src="/images/logo1.webp" alt="The Lithouse Logo" class="h-9 w-auto" />
+        <span class="fire-text text-[1.325rem] font-extrabold tracking-tight leading-[1] relative -top-] -ml-[2px]">
+            Lithouse
+        </span>
+    </div>
+
+    <div class="hidden md:flex gap-6 text-sm font-semibold tracking-widest uppercase opacity-70">
+        <a href="#" class="hover:text-amber-500 transition text-black dark:text-white">NFL</a>
+        <a href="#" class="hover:text-amber-500 transition text-black dark:text-white">NBA</a>
+        <a href="#" class="hover:text-amber-500 transition text-black dark:text-white">Boxing</a>
+        <a href="#" class="hover:text-amber-500 transition text-black dark:text-white">Live</a>
+    </div>
+
+    <div class="flex items-center gap-4">
+        <button id="darkModeToggle" onclick="toggleDarkMode()" class="p-1 hover:scale-110 transition-transform group" title="Toggle Dark Mode">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-7 h-7 rotate-[20deg]">
+                <defs>
+                    <linearGradient id="gold-metal" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#D4AF37" />
+                        <stop offset="50%" stop-color="#F9E2AF" />
+                        <stop offset="100%" stop-color="#B8860B" />
+                    </linearGradient>
+                </defs>
+                <path fill="url(#gold-metal)" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+            </svg>
+        </button>
+
+<div class="relative group cursor-pointer" onclick="toggleUserDashboard()">
+    <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-200 p-[2px] transition-all duration-300">
+        <div class="w-full h-full rounded-full bg-white dark:bg-neutral-900 flex items-center justify-center overflow-hidden">
+            <i class="fa-solid fa-user text-xs text-black dark:text-white opacity-80"></i>
+        </div>
+    </div>
+    <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white dark:border-neutral-900 rounded-full"></span>
+</div>
+
+        <button class="hidden md:block bg-black dark:bg-white dark:text-black text-white px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest shadow-md hover:bg-amber-600 dark:hover:bg-amber-500 transition-colors">Join Elite</button>
+        
+        <button onclick="toggleSidebar()" class="text-2xl focus:outline-none text-black dark:text-white">
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="url(#goldGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <defs>
+                    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FFD700" />
+                        <stop offset="50%" stop-color="#FFC107" />
+                        <stop offset="100%" stop-color="#B8860B" />
+                    </linearGradient>
+                </defs>
+                <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>        
+        </button>
+    </div>
+</nav>
+<div id="userDashboard" class="fixed inset-y-0 right-0 w-[320px] bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-2xl z-[70] transform translate-x-full transition-transform duration-500 ease-in-out shadow-[-20px_0_80px_rgba(0,0,0,0.2)] border-l border-gray-200 dark:border-white/5">
+    <div class="p-8 flex justify-between items-center border-b border-gray-100 dark:border-white/5">
+        <button onclick="toggleUserDashboard()" class="text-2xl text-black dark:text-white opacity-40 hover:opacity-100 transition-opacity">&times;</button>
+    </div>
+
+    <div class="p-8 text-center">
+        <div class="relative inline-block mb-4">
+            <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-amber-500 to-yellow-200 p-[3px] mx-auto  hover:rotate-0 transition-transform duration-500">
+                <div class="w-full h-full rounded-[1.25rem] bg-white dark:bg-neutral-900 flex items-center justify-center overflow-hidden">
+                    <i class="fa-solid fa-user text-3xl text-black dark:text-white"></i>
+                </div>
+            </div>
+            <span class="absolute -top-2 -right-2 bg-red-600 text-white text-[8px] font-black px-2 py-1 rounded-full uppercase tracking-widest shadow-lg">Elite</span>
+        </div>
+        <h3 class="text-2xl font-black uppercase tracking-tighter dark:text-white">User_293</h3>
+        <p class="text-[10px] font-bold text-black/30 dark:text-white/30 uppercase tracking-widest mt-1">Member since 2024</p>
+    </div>
+
+    <div class="px-8 grid grid-cols-2 gap-3 mb-8">
+        <div class="bg-gray-50 dark:bg-white/5 p-4 rounded-2xl border border-black/5 dark:border-white/5">
+            <p class="text-[8px] font-black uppercase text-amber-500 tracking-widest mb-1">XP Points</p>
+            <p class="text-xl font-black dark:text-white">12,450</p>
+        </div>
+
+    </div>
+
+    <div class="px-6 space-y-2">
+        <a href="#" class="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-all group">
+            <i class="fa-solid fa-bolt-lightning text-amber-500"></i>
+            <span class="text-sm font-bold dark:text-white">Faves</span>
+        </a>
+        <a href="#" class="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-all group">
+            <i class="fa-solid fa-bookmark text-gray-400"></i>
+            <span class="text-sm font-bold dark:text-white">Saved Highlights</span>
+        </a>
+        <a href="#" class="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-all group">
+            <i class="fa-solid fa-shield-halved text-gray-400"></i>
+            <span class="text-sm font-bold dark:text-white">Privacy Settings</span>
+        </a>
+        
+        <div class="pt-4 mt-4 border-t border-gray-100 dark:border-white/5 px-2">
+            <button class="w-full bg-black dark:bg-white text-white dark:text-black py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-all active:scale-95">
+                Sign Out
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Sidebar --><div id="sidebar" class="fixed inset-y-0 right-0 w-[300px] bg-white/90 dark:bg-neutral-900/95 backdrop-blur-2xl z-[60] transform translate-x-full transition-transform duration-500 ease-in-out shadow-[-20px_0_50px_rgba(0,0,0,0.1)] border-l border-gray-200 dark:border-white/10">
+    <div class="flex justify-between items-center p-8 border-b border-gray-100 dark:border-white/10">
+        <button onclick="toggleSidebar()" class="text-2xl text-black dark:text-white hover:rotate-90 transition-transform duration-300">&times;</button>
+    </div>
+
+<div class="flex flex-col gap-4 p-6">
+    <button id="lightBulbToggle" onclick="toggleDarkMode()" class="p-2 self-center hover:scale-110 transition-transform group mb-4" title="Switch to Light Mode">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-amber-400">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+        </svg>
+    </button>
+
+    <a href="#" class="group flex items-center justify-between p-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-all border border-transparent hover:border-gray-100">
+        <div class="flex items-center gap-4">
+            <img src="https://a.espncdn.com/i/teamlogos/leagues/500/nfl.png" class="w-10 h-10 object-contain" alt="NFL">
+            <span class="font-bold text-lg tracking-tight group-hover:translate-x-1 transition-transform dark:text-white">NFL</span>
+        </div>
+        <i class="fa-solid fa-chevron-right text-xs opacity-20 group-hover:opacity-100 transition-opacity dark:text-white"></i>
+    </a>
+
+    <a href="#" class="group flex items-center justify-between p-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-all border border-transparent hover:border-gray-100">
+        <div class="flex items-center gap-4">
+            <img src="https://a.espncdn.com/i/teamlogos/leagues/500/nba.png" class="w-10 h-10 object-contain" alt="NBA">
+            <span class="font-bold text-lg tracking-tight group-hover:translate-x-1 transition-transform dark:text-white">NBA</span>
+        </div>
+        <i class="fa-solid fa-chevron-right text-xs opacity-20 group-hover:opacity-100 transition-opacity dark:text-white"></i>
+    </a>
+
+    <a href="#" class="group flex items-center justify-between p-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-all border border-transparent hover:border-gray-100">
+        <div class="flex items-center gap-4">
+            <img src="images/blogo.webp" class="w-10 h-10 object-contain" alt="UFC">
+            <span class="font-bold text-lg tracking-tight group-hover:translate-x-1 transition-transform dark:text-white">Boxing</span>
+        </div>
+        <i class="fa-solid fa-chevron-right text-xs opacity-20 group-hover:opacity-100 transition-opacity dark:text-white"></i>
+    </a>
+
+<div class="mt-4 pt-6 border-t border-gray-100 dark:border-white/10 px-2 space-y-4">
+    <a href="#" class="relative block w-full aspect-[3/1] overflow-hidden rounded-2xl shadow-lg group">
+        <img src="images/bv.webp" class="absolute inset-0 w-full h-full object-cover object-[60%_50%] transition-transform duration-500 group-hover:scale-105" alt="Ball-Verse">
+        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+    </a>
+
+<a href="#" class="relative block w-full aspect-[3/1] overflow-hidden rounded-2xl shadow-lg group">
+    <img src="images/store.jpeg" 
+         class="absolute inset-0 w-full h-full object-cover object-[center_40%]
+ transition-transform duration-500 group-hover:scale-110" 
+         alt="Lithouse Store">
+    
+    <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-300"></div>
+</a>
+
+
+</div>
+
+</div>
+
+
+</div><!-- Score Scroller --><div class="mt-16 z-40 overflow-x-auto whitespace-nowrap py-5 px-4 bg-white/70 dark:bg-black/70 backdrop-blur-xl border-b border-gray-200/50 dark:border-white/10 no-scrollbar shadow-sm">
+    <div id="scoreScroller" class="inline-flex space-x-4">
+
+    <div class="min-w-[240px] bg-white dark:bg-neutral-900 border border-gray-200/60 dark:border-white/10 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all">
+        <div class="flex items-center justify-between mb-4">      
+            <div class="flex items-center gap-1.5">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+                </span>
+                <span class="uppercase text-[10px] font-black tracking-widest text-red-600">Live • 4Q 2:14</span>
+            </div>
+            <img src="images/nbatv.jpeg" alt="NBA TV" class="h-4 w-auto object-contain" />
+        </div>
+        <div class="space-y-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="https://a.espncdn.com/i/teamlogos/nba/500/gs.png" class="w-6 h-6">
+                    <span class="text-sm font-bold text-gray-800 dark:text-white">Warriors</span>
+                </div>
+                <span class="text-sm font-black text-gray-900 dark:text-white">102</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="https://a.espncdn.com/i/teamlogos/nba/500/hou.png" class="w-6 h-6">
+                    <span class="text-sm font-bold text-gray-800 dark:text-white">Rockets</span>
+                </div>
+                <span class="text-sm font-black text-gray-900 dark:text-white">98</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="min-w-[240px] bg-gray-50/50 dark:bg-neutral-900/50 border border-gray-200/50 dark:border-white/10 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all">
+        <div class="flex items-center justify-between mb-4">      
+            <div class="flex items-center gap-1.5">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                </span>
+                <span class="uppercase text-[10px] font-bold tracking-widest text-gray-400 dark:text-gray-300">Pregame • 6:00 PM</span>
+            </div>
+
+
+<img src="images/tnt.png" alt="TNT" class="h-4 w-auto object-contain" />
+
+        </div>
+        <div class="space-y-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="https://a.espncdn.com/i/teamlogos/nba/500/cha.png" class="w-6 h-6">
+                    <span class="text-sm font-bold text-gray-800 dark:text-white">Hornets</span>
+                </div>
+                <span class="text-xs font-medium text-gray-400 dark:text-gray-300">11–21</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="https://a.espncdn.com/i/teamlogos/nba/500/mil.png" class="w-6 h-6">
+                    <span class="text-sm font-bold text-gray-800 dark:text-white">Bucks</span>
+                </div>
+                <span class="text-xs font-medium text-gray-400 dark:text-gray-300">24–10</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="min-w-[240px] bg-white dark:bg-neutral-900 border border-gray-200/60 dark:border-white/10 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all">
+        <div class="flex items-center justify-between mb-4">      
+            <div class="flex items-center gap-1.5">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+                </span>
+                <span class="uppercase text-[10px] font-black tracking-widest text-red-600">Live • 2Q 8:45</span>
+            </div>
+            <img src="images/espn.png" alt="ESPN" class="h-3 w-auto object-contain" />
+        </div>
+        <div class="space-y-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="https://a.espncdn.com/i/teamlogos/nba/500/min.png" class="w-6 h-6">
+                    <span class="text-sm font-bold text-gray-800 dark:text-white">Wolves</span>
+                </div>
+                <span class="text-sm font-black text-gray-900 dark:text-white">42</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="https://a.espncdn.com/i/teamlogos/nba/500/dal.png" class="w-6 h-6">
+                    <span class="text-sm font-bold text-gray-800 dark:text-white">Mavs</span>
+                </div>
+                <span class="text-sm font-black text-gray-900 dark:text-white">45</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="min-w-[240px] bg-gray-50/50 dark:bg-neutral-900/50 border border-gray-200/50 dark:border-white/10 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all">
+        <div class="flex items-center justify-between mb-4">      
+            <div class="flex items-center gap-1.5">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                </span>
+                <span class="uppercase text-[10px] font-bold tracking-widest text-gray-400 dark:text-gray-300">Pregame • 10:00 PM</span>
+            </div>
+            <img src="images/tnt.png" alt="TNT" class="h-4 w-auto object-contain" />
+        </div>
+        <div class="space-y-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="https://a.espncdn.com/i/teamlogos/nba/500/lal.png" class="w-6 h-6">
+                    <span class="text-sm font-bold text-gray-800 dark:text-white">Lakers</span>
+                </div>
+                <span class="text-xs font-medium text-gray-400 dark:text-gray-300">18–17</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="https://a.espncdn.com/i/teamlogos/nba/500/phx.png" class="w-6 h-6">
+                    <span class="text-sm font-bold text-gray-800 dark:text-white">Suns</span>
+                </div>
+                <span class="text-xs font-medium text-gray-400 dark:text-gray-300">20–15</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</div><!-- Hero Section --><section id="heroSection" class="relative overflow-hidden min-h-[620px] max-h-[620px] sm:min-h-[700px] sm:max-h-[700px] md:min-h-[800px] md:max-h-[800px] lg:min-h-[900px] lg:max-h-[900px] bg-black"><div id="slide-1" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-100" style="background-image: url('images/trade.jpeg');"></div>
+  <div id="slide-2" class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0"></div><div class="absolute inset-0 z-[5] bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div><div class="relative z-10 px-8 md:px-16 py-20 flex flex-col justify-end h-full text-white">
+
+<div id="heroContent" class="transition-all duration-700 opacity-100 translate-y-0">
+  <div class="mb-6">
+    <span id="heroLabel" class="inline-block bg-red-600 text-white text-[10px] font-black uppercase tracking-[0.3em] px-4 py-1.5 rounded-full shadow-[0_10px_30px_rgba(220,38,38,0.5)]">
+      BREAKING
+    </span>
+  </div>
+
+  <div id="revSermonLogoWrapper" class="mb-4 flex justify-start hidden">
+    <div class="relative group">
+      <div class="absolute inset-0 bg-orange-500/20 blur-xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+      
+      <div class="relative flex items-center gap-3 bg-white/5 backdrop-blur-md border border-white/10 p-2 pr-4 rounded-full shadow-2xl">
+        <img src="images/rev2.webp" alt="Hoop Sermon" class="h-10 w-10 object-contain brightness-110 drop-shadow-md" />
+        <div class="flex flex-col">
+          <span class="text-[9px] font-black tracking-[0.2em] text-white/50 uppercase leading-none">A Series By</span>
+          <span class="text-[11px] font-extrabold tracking-tight text-white uppercase ">Rev's Hoop Sermon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h1 id="heroHeadline" class="text-5xl md:text-[7rem] font-black uppercase tracking-tighter  leading-[0.85] max-w-5xl drop-shadow-[0_10px_20px_rgba(0,0,0,1)]">
+    Ja'Marr Chase <br/><span class="text-white/30">to the Eagles</span>
+  </h1>
+
+  <p id="heroSubhead" class="mt-6 text-xl md:text-2xl text-white font-bold max-w-2xl leading-tight drop-shadow-md">
+    A stunning WR swap changes the landscape of the NFC. The deep dive into the trade of the decade.
+  </p>
+
+  <div class="mt-10 flex flex-wrap gap-5">
+    <a href="#" class="inline-flex items-center gap-3 bg-white text-black text-[11px] font-black uppercase tracking-[0.2em] px-10 py-5 rounded-xl shadow-2xl hover:bg-red-600 hover:text-white transition-all duration-300 group">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 transition-transform group-hover:scale-110">
+        <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd" />
+      </svg>
+      Watch Now
+    </a>
+    <a href="#" class="bg-black/40 backdrop-blur-md border border-white/20 text-white text-[11px] font-black uppercase tracking-[0.2em] px-10 py-5 rounded-xl hover:bg-white hover:text-black transition-all duration-300">
+       Read Full Story
+    </a>
+  </div>
+</div>
+
+<div class="absolute bottom-10 right-8 md:right-16 z-20 flex items-center gap-4">
+  <div id="slide-indicators" class="flex gap-2"></div>
+</div>
+
+
+</div>
+</section><!-- Featured Coverage --><section class="max-w-[1400px] mx-auto px-6 py-20">
+  <h2 class="text-[11px] font-black uppercase tracking-[0.4em] text-black/30 dark:text-white/30 mb-10">Featured Coverage</h2><div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+    <div class="md:col-span-8 h-[500px] ios-glass rounded-[2.5rem] overflow-hidden relative group cursor-pointer">
+      <img src="images/rev2.webp" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105">
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+      <div class="absolute bottom-10 left-10">
+        <h3 class="text-4xl font-black uppercase  tracking-tighter leading-none mb-4 text-white">Art vs. Algorithm: <br/>The Soul of the Game</h3>
+        <button class="text-xs font-black uppercase tracking-widest border-b border-white/20 pb-1 text-white">Watch Episode</button>
+      </div>
+    </div>
+  </div>
+</section><!-- Live & Upcoming --><section class="bg-white dark:bg-black py-24 text-black dark:text-white border-t border-black/5 dark:border-white/10">
+  <div class="max-w-[1400px] mx-auto px-6">
+
+<div class="flex items-center justify-between mb-16">
+  <h2 class="text-4xl md:text-5xl font-black uppercase  tracking-tighter">
+    Live & <span class="text-black/20 dark:text-white/20">Upcoming</span>
+  </h2>
+  <div class="h-[1px] flex-grow mx-8 bg-black/10 dark:bg-white/10 hidden md:block"></div>
+  <button class="text-[10px] font-black uppercase tracking-[0.3em] hover:text-red-600 transition">View Full Schedule</button>
+</div>
+
+<div class="grid md:grid-cols-3 gap-10">
+  
+  <div class="group relative bg-white dark:bg-neutral-900 rounded-[2rem] overflow-hidden border border-black/5 dark:border-white/10 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+    <div class="relative h-64 w-full overflow-hidden bg-gray-100 dark:bg-neutral-800">
+      <img src="images/game.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+      
+      <div class="absolute top-6 left-6 flex items-center gap-2 bg-black text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-xl">
+        <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+        Live
+      </div>
+
+      <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 backdrop-blur-[2px]">
+        <button class="bg-white text-black font-black uppercase tracking-widest px-8 py-4 rounded-xl shadow-2xl text-[10px] transform translate-y-4 group-hover:translate-y-0 transition-all">
+          Watch Stream
+        </button>
+      </div>
+    </div>
+
+    <div class="p-8">
+      <h3 class="text-2xl font-black uppercase  tracking-tighter leading-none mb-2">Hornets vs Bucks</h3>
+      <p class="text-[10px] font-bold text-black/30 dark:text-white/30 uppercase tracking-[0.2em]">NBA Regular Season • 7:30 PM ET</p>
+    </div>
+  </div>
+
+  <div class="group relative bg-white dark:bg-neutral-900 rounded-[2rem] overflow-hidden border border-black/5 dark:border-white/10 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+    <div class="relative h-64">
+      <img src="images/dp.webp" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" />
+      <div class="absolute top-6 left-6 bg-black/10 backdrop-blur-md text-black dark:text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest border border-black/5 dark:border-white/10">
+        Replay
+      </div>
+      <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+        <button class="bg-white text-black font-black uppercase tracking-widest px-8 py-4 rounded-xl text-[10px]">
+          Play Replay
+        </button>
+      </div>
+    </div>
+    <div class="p-8">
+      <h3 class="text-2xl font-black uppercase  tracking-tighter leading-none mb-2">Eagles Draft Party</h3>
+      <p class="text-[10px] font-bold text-black/30 dark:text-white/30 uppercase tracking-[0.2em]">Now Available • 2h 45m</p>
+    </div>
+  </div>
+
+  <div class="group relative bg-white dark:bg-neutral-900 rounded-[2rem] overflow-hidden border border-black/5 dark:border-white/10 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+    <div class="relative h-64">
+      <img src="images/dr.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+      <div class="absolute top-6 left-6 bg-red-600 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-xl">
+        Coming Up
+      </div>
+    </div>
+    <div class="p-8">
+      <h3 class="text-2xl font-black uppercase  tracking-tighter leading-none mb-2">NFL Draft Recap</h3>
+      <p class="text-[10px] font-bold text-black/30 dark:text-white/30 uppercase tracking-[0.2em]">Starts Tomorrow • 2:30 PM ET</p>
+    </div>
+  </div>
+
+</div>
+
+
+</div>
+</section><!-- Highlights --><section class="relative w-full bg-white dark:bg-black py-20 overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-6">
+
+<div class="flex items-center justify-between mb-10">
+  <h2 class="text-4xl font-black uppercase  tracking-tighter text-black dark:text-white">Highlights</h2>
+  <div class="flex gap-2">
+    <span class="w-8 h-1 bg-black dark:bg-white rounded-full"></span>
+    <span class="w-8 h-1 bg-black/10 dark:bg-white/10 rounded-full"></span>
+  </div>
+</div>
+
+<div class="overflow-x-auto no-scrollbar pb-8">
+  <div class="flex gap-6 w-max">
+    <div class="w-[350px] md:w-[450px] group rounded-[2.5rem] overflow-hidden relative ios-glass border border-black/5 dark:border-white/10 flex-shrink-0 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+
+
+<div class="relative h-72 md:h-80 w-full overflow-hidden">
+  <video 
+    class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700" 
+    autoplay 
+    muted 
+    loop 
+    playsinline
+    poster="images/ant.jpeg"> <source src="videos/top10.mp4" type="video/mp4">
+  </video><div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div><div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+     <div class="w-16 h-16 play-btn-blur rounded-full flex items-center justify-center pl-1 shadow-2xl scale-75 group-hover:scale-100 transition-transform duration-500">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" class="w-6 h-6"><path d="M8 5v14l11-7z"/></svg>
+     </div>
+  </div>
+</div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/40 to-transparent p-8">
+            <h3 class="text-white font-black text-2xl uppercase  tracking-tighter mb-1 drop-shadow-lg">Top 10 Dunks – This Year</h3>
+            <p class="text-xs font-bold text-white/60 uppercase tracking-widest mb-4">Insane dunks from across the leagues.</p>
+            <button class="bg-yellow-400 hover:bg-white text-black px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Watch Full Highlights</button>
+          </div>
+        </div>
+
+    <div class="w-[350px] md:w-[450px] group rounded-[2.5rem] overflow-hidden relative ios-glass border border-black/5 dark:border-white/10 flex-shrink-0 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+
+
+<div class="relative h-72 md:h-80 w-full overflow-hidden">
+  <video 
+    class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700" 
+    autoplay 
+    muted 
+    loop 
+    playsinline
+    poster="images/buzz.jpeg"> <source src="videos/top10.mp4" type="video/mp4">
+  </video><div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div><div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+     <div class="w-16 h-16 play-btn-blur rounded-full flex items-center justify-center pl-1 shadow-2xl scale-75 group-hover:scale-100 transition-transform duration-500">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" class="w-6 h-6"><path d="M8 5v14l11-7z"/></svg>
+     </div>
+  </div>
+</div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/40 to-transparent p-8">
+            <h3 class="text-white font-black text-2xl uppercase  tracking-tighter mb-1 drop-shadow-lg">Game-Winning Beaters</h3>
+            <p class="text-xs font-bold text-white/60 uppercase tracking-widest mb-4">The clutchest moments from this season.</p>
+            <button class="bg-yellow-400 hover:bg-white text-black px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Full Replay</button>
+          </div>
+        </div>
+
+    <div class="w-[350px] md:w-[450px] group rounded-[2.5rem] overflow-hidden relative ios-glass border border-black/5 dark:border-white/10 flex-shrink-0 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
+
+
+<div class="relative h-72 md:h-80 w-full overflow-hidden">
+  <video 
+    class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700" 
+    autoplay 
+    muted 
+    loop 
+    playsinline
+    poster="images/mic.jpeg"> <source src="videos/top10.mp4" type="video/mp4">
+  </video><div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div><div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+     <div class="w-16 h-16 play-btn-blur rounded-full flex items-center justify-center pl-1 shadow-2xl scale-75 group-hover:scale-100 transition-transform duration-500">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" class="w-6 h-6"><path d="M8 5v14l11-7z"/></svg>
+     </div>
+  </div>
+</div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/40 to-transparent p-8">
+            <h3 class="text-white font-black text-2xl uppercase  tracking-tighter mb-1 drop-shadow-lg">Mic'd Up: Trash Talk</h3>
+            <p class="text-xs font-bold text-white/60 uppercase tracking-widest mb-4">Raw Unfiltered Audio.</p>
+            <button class="bg-yellow-400 hover:bg-white text-black px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Play Episode</button>
+          </div>
+        </div>
+
+  </div>
+</div>
+
+
+</div>
+</section><!-- Top Stories --><section class="bg-white dark:bg-black py-24 text-black dark:text-white border-t border-black/5 dark:border-white/10">
+  <div class="max-w-7xl mx-auto px-6">
+
+<div class="flex items-center justify-between mb-16">
+  <h2 class="text-5xl font-black uppercase  tracking-tighter">
+    Top Stories
+  </h2>
+  <div class="h-[2px] flex-grow mx-8 bg-black/5 dark:bg-white/10 hidden md:block"></div>
+</div>
+
+<div class="grid md:grid-cols-3 gap-12">
+  
+  <article class="group relative bg-white dark:bg-neutral-900 rounded-[2.5rem] overflow-hidden border border-black/5 dark:border-white/10 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+    <div class="relative h-64 overflow-hidden">
+      <img src="images/wemby.jpeg" 
+           class="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110" />
+      <div class="absolute inset-0"></div>
+    </div>
+
+    <div class="p-8">
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-red-600 mb-3 block">NBA Analysis</span>
+      <h3 class="text-2xl font-black uppercase  tracking-tighter leading-none mb-4 group-hover:text-red-600 transition-colors">
+        Wemby Drops 47 <br/>in OT Classic vs Thunder
+      </h3>
+      <p class="text-sm text-black/50 dark:text-white/50 font-medium leading-relaxed mb-6">
+        In one of the wildest finishes this season, Wemby takes over in the 4th and OT to seal the win in San Antonio.
+      </p>
+      <a href="#" class="inline-flex items-center gap-2 text-black dark:text-white text-[10px] font-black uppercase tracking-widest border-b-2 border-black dark:border-white pb-1 hover:border-red-600 transition-all">
+        Read Full Story
+      </a>
+    </div>
+  </article>
+
+  <article class="group relative bg-white dark:bg-neutral-900 rounded-[2.5rem] overflow-hidden border border-black/5 dark:border-white/10 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+    <div class="relative h-64 overflow-hidden">
+      <img src="images/jj.jpeg" 
+           class="object-cover object-top w-full h-full transition-transform duration-700 group-hover:scale-110" />
+      <div class="absolute inset-0"></div>
+    </div>
+    <div class="p-8">
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-red-600 mb-3 block">NFL Rumors</span>
+      <h3 class="text-2xl font-black uppercase  tracking-tighter leading-none mb-4 group-hover:text-red-600 transition-colors">
+        Jefferson Yet to Sign <br/>Tag -- Trade on Table
+      </h3>
+      <p class="text-sm text-black/50 dark:text-white/50 font-medium leading-relaxed mb-6">
+        The Vikings say they're confident, but the clock is ticking and teams like the Panthers and Patriots are circling.
+      </p>
+      <a href="#" class="inline-flex items-center gap-2 text-black dark:text-white text-[10px] font-black uppercase tracking-widest border-b-2 border-black dark:border-white pb-1 hover:border-red-600 transition-all">
+        Read Full Story
+      </a>
+    </div>
+  </article>
+
+  <article class="group relative bg-white dark:bg-neutral-900 rounded-[2.5rem] overflow-hidden border border-black/5 dark:border-white/10 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+    <div class="relative h-64 overflow-hidden">
+      <img src="images/trae.webp" 
+           class="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110" />
+      <div class="absolute inset-0"></div>
+    </div>
+    <div class="p-8">
+      <span class="text-[10px] font-black uppercase tracking-[0.3em] text-red-600 mb-3 block">Front Office</span>
+      <h3 class="text-2xl font-black uppercase  tracking-tighter leading-none mb-4 group-hover:text-red-600 transition-colors">
+        Young Involved in <br/>Offseason Decision
+      </h3>
+      <p class="text-sm text-black/50 dark:text-white/50 font-medium leading-relaxed mb-6">
+        Sources say the Hawks consulted Young before finalizing their next head coach, a rare glimpse at star-level influence.
+      </p>
+      <a href="#" class="inline-flex items-center gap-2 text-black dark:text-white text-[10px] font-black uppercase tracking-widest border-b-2 border-black dark:border-white pb-1 hover:border-red-600 transition-all">
+        Read Full Story
+      </a>
+    </div>
+  </article>
+
+</div>
+
+<div class="text-center mt-20">
+  <a href="#" class="inline-block bg-black dark:bg-white dark:text-black text-white px-12 py-5 rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-xl hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-all active:scale-95">
+    View All Top Stories
+  </a>
+</div>
+
+
+</div>
+</section><!-- Flagship Show --><section class="bg-white dark:bg-black py-24 border-t border-black/5 dark:border-white/10">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
+    <div class="md:w-2/3">
+      <div class="flex items-center gap-2 mb-4">
+        <h2 class="text-[10px] font-black uppercase tracking-[0.3em] text-red-600">Flagship Show</h2>
+      </div>
+      <h2 class="text-5xl md:text-7xl font-black mb-6 uppercase tracking-tighter leading-none text-black dark:text-white">The Lithouse <br/><span class="text-black/20 dark:text-white/20">Lounge</span></h2>
+      <p class="text-xl text-black/50 dark:text-white/50 mb-8 font-medium max-w-xl">Unfiltered conversations, bold takes, and behind-the-scenes stories from the world of sports. Hosted every Thursday at 8 PM ET.</p>
+      <a href="#" class="bg-black dark:bg-white dark:text-black text-white px-8 py-4 rounded-xl font-black uppercase text-xs tracking-widest hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-all inline-block">Watch Latest Episode</a>
+    </div>
+
+<div class="md:w-1/3 w-full">
+  <div class="relative aspect-square rounded-[3rem] bg-black overflow-hidden shadow-2xl group cursor-pointer">
+    <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=1000" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition duration-700">
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="w-20 h-20 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full flex items-center justify-center pl-1 group-hover:scale-110 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" class="w-8 h-8"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <div class="absolute bottom-8 left-8 right-8">
+       <div class="h-1 w-full bg-white/20 rounded-full overflow-hidden">
+          <div class="h-full bg-red-600 w-1/3 shadow-[0_0_15px_rgba(220,38,38,1)]"></div>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+</section><!-- Footer --><footer class="bg-white dark:bg-black border-t border-black/5 dark:border-white/10 pt-24 pb-12">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
+
+<div>
+  <h3 class="text-[10px] font-black uppercase tracking-[0.4em] mb-6 text-black/30 dark:text-white/30">📬 Newsletter</h3>
+  <p class="mb-6 text-xs font-bold text-black/40 dark:text-white/40 leading-relaxed uppercase tracking-widest">Get the hottest sports news, fresh takes, and live alerts.</p>
+  <div class="flex border-b-2 border-black dark:border-white pb-2">
+    <input type="email" placeholder="EMAIL ADDRESS" class="bg-transparent w-full text-[10px] font-black outline-none uppercase tracking-widest text-black dark:text-white placeholder-black/40 dark:placeholder-white/40">
+    <button class="text-[10px] font-black uppercase tracking-widest hover:text-red-600 transition text-black dark:text-white">Join</button>
+  </div>
+</div>
+
+<div class="md:pl-10">
+  <h3 class="text-[10px] font-black uppercase tracking-[0.4em] mb-6 text-black/30 dark:text-white/30">Explore</h3>
+  <ul class="space-y-3 text-[10px] font-black uppercase tracking-[0.2em] text-black dark:text-white">
+    <li><a href="#" class="hover:text-red-600 transition">About Us</a></li>
+    <li><a href="#" class="hover:text-red-600 transition">Careers</a></li>
+    <li><a href="#" class="hover:text-red-600 transition">Privacy</a></li>
+    <li><a href="#" class="hover:text-red-600 transition">Contact</a></li>
+  </ul>
+</div>
+
+<div>
+  <h3 class="text-[10px] font-black uppercase tracking-[0.4em] mb-6 text-black/30 dark:text-white/30">Connect</h3>
+  <div class="flex space-x-4">
+    <a href="https://x.com/revlithouse?s=21" class="w-10 h-10 border border-black/5 dark:border-white/10 rounded-full flex items-center justify-center hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition text-black dark:text-white">
+       <svg viewBox="0 0 1200 1227" class="h-4 w-4" fill="currentColor"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"/></svg>
+    </a>
+    <a href="#" class="w-10 h-10 border border-black/5 dark:border-white/10 rounded-full flex items-center justify-center hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition text-black dark:text-white">
+       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505a3.017 3.017 0 0 0-2.122 2.136C0 8.055 0 12 0 12s0 3.945.501 5.814a3.017 3.017 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.945 24 12 24 12s0-3.945-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+       </svg>
+    </a>
+  </div>
+</div>
+
+<div>
+  <h3 class="text-[10px] font-black uppercase tracking-[0.4em] mb-6 text-black/30 dark:text-white/30">Mobile</h3>
+  <div class="space-y-2">
+    <div class="h-10 bg-black dark:bg-white rounded flex items-center justify-center gap-2 cursor-pointer hover:bg-red-600 dark:hover:bg-red-600 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="white" class="h-4 w-4 dark:fill-black">
+        <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 21.8-88.5 21.8-11.4 0-51.1-18.1-81.9-18.1-41.9 0-82.5 24.5-104.2 60.3-43.1 72.3-10.6 182.2 31.3 241.6 20.2 29.5 45.1 63.8 77.1 62.6 30.7-1.1 41.1-20.2 78.4-20.2 37.3 0 48 20.2 80 19.1 33-1.1 55.4-31 75.4-59.7 22.8-33.1 32.2-65.1 32.5-66.8-.7-.3-62.8-24.3-63.4-96.1zM289 80.4c17.1-20.8 28.1-49.3 25-77.9-24.5 1-53.7 16.3-71.3 36.9-15.6 18.2-29.4 46.9-25.7 75.1 27 2.1 54.9-13.3 72-34.1z"/>
+      </svg>
+      <span class="text-[10px] font-black text-white dark:text-black uppercase tracking-widest">App Store</span>
+    </div>
+    <div class="h-10 border border-black/10 dark:border-white/10 rounded flex items-center justify-center gap-2 cursor-pointer hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition group">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" class="h-4 w-4 text-black dark:text-white group-hover:text-white dark:group-hover:text-black transition">
+        <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-10.3 18-28.5-1.2-40.8zM325.3 277.7l60.1 60.1L104.6 499l220.7-221.3z"/>
+      </svg>
+      <span class="text-[10px] font-black uppercase tracking-widest text-black dark:text-white">Play Store</span>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-black/5 dark:border-white/10 flex justify-between items-center text-[10px] font-black text-black/20 dark:text-white/20 uppercase tracking-[0.5em]">
+    <span>© 2026 Lithouse Network</span>
+  </div>
+</footer><script>
+
+// Toggle User Dashboard
+function toggleUserDashboard() {
+    const dashboard = document.getElementById('userDashboard');
+    dashboard.classList.toggle('translate-x-full');
+}
+
+
+    const heroSlides = [
+      {
+        label: "BREAKING",
+        headline: "Ja'Marr Chase \nto the Eagles",
+        subhead: "A stunning WR swap changes the landscape of the NFC. The deep dive into the trade of the decade.",
+        image: "images/trade.jpeg"
+      },
+      {
+        label: "NFL",
+        headline: "Stars on \nthe Move",
+        subhead: "Inside the blockbuster deals shaping the next phase of the 2026 offseason.",
+        image: "images/fa.jpeg"
+      },
+      {
+        label: "ORIGINAL",
+        headline: "Art vs \nAlgorithm",
+        subhead: "In this episode, Rev unpacks why some players just got it, and others are still trying to replicate it.",
+        image: "images/rev.webp"
+      }
+    ];
+
+    let heroIndex = 0;
+    const slide1 = document.getElementById("slide-1");
+    const slide2 = document.getElementById("slide-2");
+    const heroContent = document.getElementById("heroContent");
+    const indicatorsContainer = document.getElementById("slide-indicators");
+    const SLIDE_DURATION = 5000;
+
+    // Initialize Indicators
+    heroSlides.forEach((_, i) => {
+      const div = document.createElement('div');
+      div.className = `h-1 w-12 bg-white/20 rounded-full overflow-hidden relative`;
+      div.innerHTML = `<div class="progress-bar absolute inset-0 bg-red-600 w-0"></div>`;
+      indicatorsContainer.appendChild(div);
+    });
+
+    function updateHero() {
+      const nextIndex = (heroIndex + 1) % heroSlides.length;
+      const slide = heroSlides[nextIndex];
+      
+      const activeLayer = heroIndex % 2 === 0 ? slide1 : slide2;
+      const nextLayer = heroIndex % 2 === 0 ? slide2 : slide1;
+
+      nextLayer.style.backgroundImage = `url('${slide.image}')`;
+      
+      heroContent.style.opacity = "0";
+      heroContent.style.transform = "translateY(10px)";
+
+      setTimeout(() => {
+        nextLayer.style.opacity = "1";
+        activeLayer.style.opacity = "0";
+
+        document.getElementById("heroLabel").innerText = slide.label;
+        document.getElementById("heroHeadline").innerHTML = slide.headline.replace("\n", "<br/>");
+        document.getElementById("heroSubhead").innerText = slide.subhead;
+        
+        const revLogo = document.getElementById("revSermonLogoWrapper");
+        if (slide.headline.includes("Art vs")) {
+          revLogo.classList.remove("hidden");
+        } else {
+          revLogo.classList.add("hidden");
+        }
+
+        heroContent.style.opacity = "1";
+        heroContent.style.transform = "translateY(0)";
+        
+        heroIndex = nextIndex;
+        resetProgressBar();
+      }, 500);
+    }
+
+    function resetProgressBar() {
+      const bars = document.querySelectorAll('.progress-bar');
+      bars.forEach((bar, i) => {
+        bar.style.transition = 'none';
+        bar.style.width = i < heroIndex ? '100%' : '0%';
+        if (i === heroIndex) {
+          setTimeout(() => {
+            bar.style.transition = `width ${SLIDE_DURATION}ms linear`;
+            bar.style.width = '100%';
+          }, 50);
+        }
+      });
+    }
+
+    resetProgressBar();
+    setInterval(updateHero, SLIDE_DURATION);
+
+    // Dark mode toggle with fire effect
+    function toggleDarkMode() {
+        const html = document.documentElement;
+        const sidebar = document.getElementById('sidebar');
+
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            
+            if (!sidebar.classList.contains('translate-x-full')) {
+                toggleSidebar();
+            }
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            createSparks();
+        }
+    }
+
+    // Fire/spark effect on dark mode toggle
+    function createSparks() {
+        const logoText = document.querySelector('.fire-text');
+        const rect = logoText.getBoundingClientRect();
+        
+        for (let i = 0; i < 30; i++) {
+            const isSmoke = i % 2 === 0;
+            const particle = document.createElement('div');
+            particle.className = isSmoke ? 'smoke' : 'ember';
+            
+            const startX = rect.left + rect.width / 2;
+            const startY = rect.top + rect.height / 2;
+            
+            particle.style.left = `${startX}px`;
+            particle.style.top = `${startY}px`;
+            
+            document.body.appendChild(particle);
+            
+            const adx = (Math.random() - 0.5) * 120;
+            const ady = isSmoke ? (Math.random() * -150) - 20 : (Math.random() - 0.5) * 150;
+            
+            particle.animate([
+                { transform: `translate(0, 0) scale(0.5)`, opacity: 1 },
+                { transform: `translate(${adx}px, ${ady}px) scale(${isSmoke ? 3 : 0.2})`, opacity: 0 }
+            ], {
+                duration: isSmoke ? 1500 + Math.random() * 1000 : 800 + Math.random() * 500,
+                easing: 'ease-out',
+                fill: 'forwards'
+            });
+            
+            setTimeout(() => particle.remove(), 2500);
+        }
+    }
+
+    // Sidebar toggle
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('translate-x-full');
+    }
+
+    // Nav scroll effect
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.classList.add('nav-scrolled');
+        } else {
+            nav.classList.remove('nav-scrolled');
+        }
+    });
+
+    // Load saved theme preference
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+    }
+</script><div id="gameModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:p-6 transition-all duration-300">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-xl" onclick="closeGameModal()"></div>
+
+<div class="relative w-full max-w-5xl bg-white dark:bg-[#0f0f0f] rounded-[2.5rem] overflow-hidden shadow-[0_32px_64px_rgba(0,0,0,0.5)] border border-black/10 dark:border-white/10 max-h-[90vh] flex flex-col scale-95 opacity-0 transition-all duration-300" id="modalContainer">
+    
+    <div class="p-4 md:p-8 border-b border-black/5 dark:border-white/5 bg-gray-50/50 dark:bg-white/5">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8">
+    
+    <div class="flex items-center gap-3 md:gap-4 flex-1 md:justify-end text-center md:text-right w-full min-w-0">
+        <div class="order-2 md:order-1 min-w-0">
+            <h2 id="modalTeam1Name" class="text-lg md:text-3xl font-black uppercase tracking-tighter dark:text-white leading-none truncate">---</h2>
+            <p id="modalTeam1Record" class="text-[10px] font-bold opacity-40 uppercase tracking-widest mt-1 dark:text-white">0-0</p>
+        </div>
+        <img id="modalTeam1Logo" src="" class="w-10 h-10 md:w-16 md:h-16 object-contain flex-shrink-0 order-1 md:order-2" alt="">
+    </div>
+
+    <div class="text-center px-3 md:px-8 md:border-x border-black/5 dark:border-white/10 flex-shrink-0">
+        <span id="modalGameStatus" class="bg-gray-500 text-white text-[9px] md:text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest mb-3 inline-block shadow-lg">PREGAME</span>
+        <div class="flex items-center justify-center gap-3 md:gap-6">
+            <span id="modalTeam1Score" class="text-3xl md:text-6xl font-black tracking-tighter dark:text-white">0</span>
+            <span class="text-lg md:text-2xl font-black opacity-20">-</span>
+            <span id="modalTeam2Score" class="text-3xl md:text-6xl font-black tracking-tighter dark:text-white">0</span>
+        </div>
+    </div>
+
+    <div class="flex items-center gap-3 md:gap-4 flex-1 md:justify-start text-center md:text-left w-full min-w-0">
+        <img id="modalTeam2Logo" src="" class="w-10 h-10 md:w-16 md:h-16 object-contain flex-shrink-0" alt="">
+        <div class="min-w-0">
+            <h2 id="modalTeam2Name" class="text-lg md:text-3xl font-black uppercase tracking-tighter dark:text-white leading-none truncate">---</h2>
+            <p id="modalTeam2Record" class="text-[10px] font-bold opacity-40 uppercase tracking-widest mt-1 dark:text-white">0-0</p>
+        </div>
+    </div>
+</div>
+
+<button onclick="closeGameModal()" class="absolute top-4 right-6 text-3xl font-light hover:rotate-90 transition-transform dark:text-white opacity-50 hover:opacity-100">&times;</button>
+
+
+</div>
+
+    <div class="flex-grow overflow-y-auto no-scrollbar p-6 md:p-10">
+        <div class="grid lg:grid-cols-3 gap-10">
+            <div class="lg:col-span-2 space-y-8">
+                <h4 class="text-[11px] font-black uppercase tracking-[0.4em] text-amber-500 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-simple"></i> Box Score
+                </h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="text-[9px] font-black uppercase tracking-widest opacity-40 dark:text-white border-b border-black/5 dark:border-white/5">
+                                <th class="pb-4">Player</th>
+                                <th class="pb-4">Team</th>
+                                <th class="pb-4">PTS</th>
+                                <th class="pb-4">REB</th>
+                                <th class="pb-4">AST</th>
+                                <th class="pb-4">MIN</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modalBoxScoreBody" class="text-sm font-bold dark:text-white"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-gray-50/50 dark:bg-white/5 rounded-[2rem] p-6 border border-black/5 dark:border-white/5">
+                <h4 class="text-[11px] font-black uppercase tracking-[0.4em] text-red-600 mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-fire-pulse"></i> Play by Play
+                </h4>
+                <div id="modalPlayByPlay" class="space-y-6"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div><script>
+
+// Cache for standings seeds -- keyed by ESPN team ID
+let standingsSeedMap = {};
+
+async function loadStandings() {
+    try {
+        const res = await fetch('https://site.api.espn.com/apis/v2/sports/basketball/nba/standings');
+        const data = await res.json();
+        const newMap = {};
+
+        data.children?.forEach(conference => {
+            const entries = conference.standings?.entries || [];
+
+            // Each entry has a 'stats' array -- find wins and losses and compute win pct
+            const ranked = entries.map(entry => {
+                const wins = entry.stats?.find(s => s.name === 'wins')?.value ?? 0;
+                const losses = entry.stats?.find(s => s.name === 'losses')?.value ?? 0;
+                const total = wins + losses;
+                const winPct = total > 0 ? wins / total : 0;
+                return { id: entry.team.id, winPct, wins, losses };
+            });
+
+            // Sort descending by win pct -- ties broken by raw wins
+            ranked.sort((a, b) => b.winPct - a.winPct || b.wins - a.wins);
+
+            // Assign seed 1–15 per conference based on that real sorted order
+            ranked.forEach((team, idx) => {
+                newMap[team.id] = idx + 1;
+            });
+        });
+
+        standingsSeedMap = newMap;
+    } catch (err) {
+        console.warn("Standings fetch failed:", err);
+    }
+}
+
+async function loadGames() {
+    try {
+        const scroller = document.getElementById('scoreScroller');
+        
+        const getESPNFormatDate = (date) => {
+            return date.toISOString().split('T')[0].replace(/-/g, '');
+        };
+
+        const today = new Date();
+        const yesterday = new Date();
+        yesterday.setDate(today.getDate() - 1);
+
+        const dateToday = getESPNFormatDate(today);
+        const dateYesterday = getESPNFormatDate(yesterday);
+
+        const [resToday, resYesterday] = await Promise.all([
+            fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${dateToday}`),
+            fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${dateYesterday}`)
+        ]);
+
+        const dataToday = await resToday.json();
+        const dataYesterday = await resYesterday.json();
+
+        let allEvents = [...(dataToday.events || []), ...(dataYesterday.events || [])];
+
+        if (allEvents.length === 0) {
+            scroller.innerHTML = '<div class="min-w-[240px] p-8 text-center text-sm text-gray-400 dark:text-gray-500">No games found</div>';
+            return;
+        }
+
+        allEvents.sort((a, b) => {
+            const stateOrder = { 'in': 0, 'pre': 1, 'post': 2 };
+            return stateOrder[a.status.type.state] - stateOrder[b.status.type.state];
+        });
+
+        scroller.innerHTML = '';
+        
+        allEvents.forEach(event => {
+            const comp = event.competitions[0];
+            const away = comp.competitors.find(c => c.homeAway === 'away');
+            const home = comp.competitors.find(c => c.homeAway === 'home');
+            const status = event.status.type;
+            const isLive = status.state === 'in';
+            
+            // Seed lookup -- falls back silently if not found
+            const awaySeed = standingsSeedMap[away.team.id];
+            const homeSeed = standingsSeedMap[home.team.id];
+            const seedBadge = (seed) => seed
+                ? `<span class="text-[9px] font-black text-black/30 dark:text-white/30 leading-none">${seed}</span>`
+                : '';
+
+            let cardBg = isLive ? 'bg-white dark:bg-neutral-900' : 'bg-gray-50/50 dark:bg-neutral-900/50';
+            let dotColor = isLive ? 'bg-red-600' : (status.state === 'pre' ? 'bg-amber-500' : 'bg-gray-500');
+            let textColor = isLive ? 'text-red-600' : 'text-gray-400 dark:text-gray-300';
+            let fontWeight = isLive ? 'font-black' : 'font-bold';
+            let ping = isLive
+                ? '<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>'
+                : (status.state === 'pre' ? '<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>' : '');
+            
+            let label = isLive
+                ? `Live • ${status.shortDetail}`
+                : (status.state === 'pre'
+                    ? `Pregame • ${status.shortDetail}`
+                    : (event.date.includes(today.toISOString().split('T')[0]) ? 'Final' : 'Final • Yesterday'));
+
+            const card = document.createElement('div');
+            card.className = `min-w-[240px] ${cardBg} border border-gray-200/60 dark:border-white/10 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all cursor-pointer`;
+            card.onclick = () => openGameModal(event.id);
+            
+            card.innerHTML = `
+                <div class="flex items-center justify-between mb-4">      
+                    <div class="flex items-center gap-1.5">
+                        <span class="relative flex h-2 w-2">
+                            ${ping}
+                            <span class="relative inline-flex rounded-full h-2 w-2 ${dotColor}"></span>
+                        </span>
+                        <span class="uppercase text-[10px] ${fontWeight} tracking-widest ${textColor}">${label}</span>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <img src="${away.team.logo}" class="w-6 h-6 object-contain">
+                            <span class="text-sm font-bold text-gray-800 dark:text-white">${away.team.abbreviation}</span>
+                            ${seedBadge(awaySeed)}
+                        </div>
+                        ${status.state === 'pre'
+                            ? `<span class="text-xs font-medium text-gray-400 dark:text-gray-300">${away.records?.[0]?.summary || '0-0'}</span>`
+                            : `<span class="text-sm font-black text-gray-900 dark:text-white">${away.score || '0'}</span>`
+                        }
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <img src="${home.team.logo}" class="w-6 h-6 object-contain">
+                            <span class="text-sm font-bold text-gray-800 dark:text-white">${home.team.abbreviation}</span>
+                            ${seedBadge(homeSeed)}
+                        </div>
+                        ${status.state === 'pre'
+                            ? `<span class="text-xs font-medium text-gray-400 dark:text-gray-300">${home.records?.[0]?.summary || '0-0'}</span>`
+                            : `<span class="text-sm font-black text-gray-900 dark:text-white">${home.score || '0'}</span>`
+                        }
+                    </div>
+                </div>
+            `;
+            scroller.appendChild(card);
+        });
+    } catch (err) {
+        console.error("Scorecard fetch error:", err);
+    }
+}
+
+// Load standings first, then games -- refresh standings every 10 min, games every 30s
+loadStandings().then(loadGames);
+setInterval(loadGames, 30000);
+setInterval(loadStandings, 600000);
+
+
+// --- REPLACE YOUR EXISTING openGameModal FUNCTION WITH THIS UPDATED VERSION ---
+
+// --- SMART TEAM COLORS MAP ---
+const teamColorMap = {
+    'ATL': '#E03A3E', 'BOS': '#007A33', 'BKN': '#000000', 'CHA': '#1D1160', 'CHI': '#CE1141',
+    'CLE': '#860038', 'DAL': '#00538C', 'DEN': '#0E2240', 'DET': '#C8102E', 'GS': '#1D428A',
+    'HOU': '#CE1141', 'IND': '#FDB927', 'LAC': '#C8102E', 'LAL': '#552583', 'MEM': '#5D76A9',
+    'MIA': '#98002E', 'MIL': '#00471B', 'MIN': '#0C2340', 'NOP': '#0C2340', 'NY': '#006BB6',
+    'OKC': '#007AC1', 'ORL': '#0077C0', 'PHI': '#006BB6', 'PHX': '#1D1160', 'POR': '#E03A3E',
+    'SAC': '#5A2D81', 'SAS': '#C4CED4', 'TOR': '#CE1141', 'UTA': '#002B5C', 'WAS': '#002B5C'
+};
+
+// Helper to ensure contrast based on current theme
+function getSafeTeamColor(abbr) {
+    const rawColor = teamColorMap[abbr] || '#f59e0b';
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    // Manual adjustments for legibility
+    if (isDark) {
+        if (abbr === 'BKN' || abbr === 'DEN' || abbr === 'MIN') return '#94a3b8'; // Lighten dark teams
+    } else {
+        if (abbr === 'SAS') return '#64748b'; // Darken light teams
+    }
+    return rawColor;
+}
+
+async function openGameModal(gameId) {
+    const modal = document.getElementById('gameModal');
+    const container = document.getElementById('modalContainer');
+    
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    setTimeout(() => {
+        container.classList.remove('scale-95', 'opacity-0');
+        container.classList.add('scale-100', 'opacity-100');
+    }, 10);
+    document.body.style.overflow = 'hidden';
+
+    try {
+        const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=${gameId}`);
+        const data = await res.json();
+
+        const comp = data.header.competitions[0];
+        const away = comp.competitors.find(c => c.homeAway === 'away');
+        const home = comp.competitors.find(c => c.homeAway === 'home');
+        const isPregame = comp.status.type.state === 'pre';
+
+        // Set Headers
+        document.getElementById('modalGameStatus').innerText = comp.status.type.detail;
+        document.getElementById('modalTeam1Name').innerText = away.team.abbreviation;
+        document.getElementById('modalTeam1Score').innerText = away.score || '0';
+document.getElementById('modalTeam1Logo').src = away.team.logo || `https://a.espncdn.com/i/teamlogos/nba/500/${away.team.abbreviation.toLowerCase()}.png`;
+        document.getElementById('modalTeam1Record').innerText = away.record?.[0]?.displayValue || '0-0';
+
+        document.getElementById('modalTeam2Name').innerText = home.team.abbreviation;
+        document.getElementById('modalTeam2Score').innerText = home.score || '0';
+document.getElementById('modalTeam2Logo').src = home.team.logo || `https://a.espncdn.com/i/teamlogos/nba/500/${home.team.abbreviation.toLowerCase()}.png`;
+        document.getElementById('modalTeam2Record').innerText = home.record?.[0]?.displayValue || '0-0';
+
+        if (isPregame) {
+            let leadersHtml = `<div class="space-y-6">`;
+            if (data.leaders) {
+                data.leaders.forEach(teamLeader => {
+                    const color = getSafeTeamColor(teamLeader.team.abbreviation);
+                    leadersHtml += `
+                        <div class="mb-4">
+                            <h5 class="text-[10px] font-black uppercase tracking-widest mb-3" style="color: ${color}">${teamLeader.team.displayName} Leaders</h5>
+                            <div class="grid grid-cols-3 gap-2">
+                                ${teamLeader.leaders.map(l => `
+                                    <div class="bg-black/5 dark:bg-white/5 p-3 rounded-xl border-l-2" style="border-color: ${color}">
+                                        <p class="text-[8px] opacity-50 uppercase font-black">${l.displayName}</p>
+                                        <p class="text-xs font-bold truncate">${l.leaders[0].athlete.shortName}</p>
+                                        <p class="text-sm font-black" style="color: ${color}">${l.leaders[0].displayValue}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>`;
+                });
+            }
+            leadersHtml += `</div>`;
+
+            let injuryHtml = `<div class="space-y-4">`;
+            if (data.injuries && data.injuries.length > 0) {
+                data.injuries.forEach(teamInj => {
+                    const color = getSafeTeamColor(teamInj.team.abbreviation);
+                    injuryHtml += `<div class="mb-4">
+                        <h5 class="text-[10px] font-black uppercase tracking-widest mb-2" style="color: ${color}">${teamInj.team.displayName} Injuries</h5>
+                        <div class="space-y-2">
+                            ${teamInj.injuries.map(i => `
+                                <div class="flex justify-between items-center text-xs border-b border-black/5 dark:border-white/5 pb-2">
+                                    <span class="font-bold dark:text-white">${i.athlete.displayName}</span>
+                                    <span class="font-black uppercase text-[9px] px-2 py-0.5 rounded" style="background-color: ${color}20; color: ${color}">${i.status}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>`;
+                });
+            } else { injuryHtml += `<p class="text-xs opacity-40 italic">No significant injuries reported.</p>`; }
+            injuryHtml += `</div>`;
+
+            document.getElementById('modalBoxScoreBody').innerHTML = `<tr><td colspan="6" class="p-0"><div class="grid md:grid-cols-2 gap-8 py-4"><div>${leadersHtml}</div><div>${injuryHtml}</div></div></td></tr>`;
+                
+        } else {
+            let statsHtml = '';
+            data.boxscore?.players?.forEach(teamGroup => {
+                const color = getSafeTeamColor(teamGroup.team.abbreviation);
+                statsHtml += `<tr class="bg-black/5 dark:bg-white/5"><td colspan="6" class="py-3 px-4 font-black text-[10px] uppercase" style="color: ${color}">${teamGroup.team.displayName}</td></tr>`;
+                teamGroup.statistics.forEach(statSet => {
+                    statSet.athletes.forEach(p => {
+                        if (p.stats) {
+                            statsHtml += `
+                                <tr class="border-b border-black/5 dark:border-white/5 text-sm">
+                                    <td class="py-3 font-bold pl-4 dark:text-white">${p.athlete.displayName}</td>
+                                    <td class="opacity-40 text-[10px]">${teamGroup.team.abbreviation}</td>
+                                    <td class="font-black text-center" style="color: ${color}">${p.stats[statSet.labels.indexOf('PTS')] || '0'}</td>
+                                    <td class="text-center">${p.stats[statSet.labels.indexOf('REB')] || '0'}</td>
+                                    <td class="text-center">${p.stats[statSet.labels.indexOf('AST')] || '0'}</td>
+                                    <td class="text-right pr-4 font-black text-[10px] opacity-60">${p.stats[statSet.labels.indexOf('MIN')] || '0'}</td>
+                                </tr>`;
+                        }
+                    });
+                });
+            });
+            document.getElementById('modalBoxScoreBody').innerHTML = statsHtml;
+        }
+
+        const plays = data.plays || [];
+        document.getElementById('modalPlayByPlay').innerHTML = plays.slice(-8).reverse().map(play => {
+            const color = play.team ? getSafeTeamColor(play.team.abbreviation) : '#f59e0b';
+            return `
+            <div class="relative pl-6 mb-4">
+                <div class="absolute left-0 top-1.5 w-1.5 h-1.5 rounded-full" style="background-color: ${color}"></div>
+                <p class="text-[9px] font-black uppercase opacity-40 dark:text-white">${play.clock?.displayValue || 'LIVE'}</p>
+                <p class="text-[11px] font-bold leading-tight dark:text-gray-300">${play.text}</p>
+            </div>`;
+        }).join('') || `<p class="text-center opacity-20 py-10 dark:text-white">Waiting for tip-off...</p>`;
+
+    } catch (err) { console.error("Modal Data Error:", err); }
+}
+
+function closeGameModal() {
+    const container = document.getElementById('modalContainer');
+    container.classList.add('scale-95', 'opacity-0');
+    setTimeout(() => {
+        document.getElementById('gameModal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }, 300);
+}
+
+loadGames();
+setInterval(loadGames, 30000); // 30s refresh is better for live data
+</script>
+<button onclick="toggleChat()" class="fixed bottom-6 right-6 z-[100] w-14 h-14 bg-red-600 rounded-2xl shadow-[0_10px_30px_rgba(220,38,38,0.4)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+    <i class="fa-solid fa-comments text-white text-xl group-hover:rotate-12 transition-transform"></i>
+    <span class="absolute -top-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white dark:border-black rounded-full animate-pulse"></span>
+</button>
+
+<div id="chatWindow" class="fixed bottom-24 right-6 z-[100] w-[350px] h-[500px] ios-glass rounded-[2.5rem] flex flex-col shadow-2xl translate-y-[120%] opacity-0 pointer-events-none transition-all duration-500 ease-in-out border border-white/20">
+    <div class="p-5 border-b border-black/5 dark:border-white/10 flex items-center justify-between">
+        <div>
+            <h4 class="text-xs font-black uppercase tracking-widest text-black dark:text-white">Lounge Chat</h4>
+            <div class="flex items-center gap-1.5 mt-1">
+                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                <span class="text-[9px] font-bold opacity-40 uppercase dark:text-white">1,240 Online</span>
+            </div>
+        </div>
+        <button onclick="toggleChat()" class="text-black dark:text-white opacity-40 hover:opacity-100 transition-opacity text-xl">&times;</button>
+    </div>
+
+    <div class="flex p-2 gap-2 overflow-x-auto no-scrollbar border-b border-black/5 dark:border-white/5">
+        <button class="px-4 py-1.5 rounded-full bg-black dark:bg-white text-white dark:text-black text-[9px] font-black uppercase tracking-widest">Lobby</button>
+        <button class="px-4 py-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/5 text-[9px] font-black uppercase tracking-widest dark:text-white/40">Gifts</button>
+        <button class="px-4 py-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/5 text-[9px] font-black uppercase tracking-widest dark:text-white/40">NBA</button>
+    </div>
+
+    <div class="flex-grow overflow-y-auto p-5 space-y-4 no-scrollbar">
+        <div class="flex gap-3">
+            <div class="w-8 h-8 rounded-full bg-amber-500 flex-shrink-0 flex items-center justify-center text-[10px] font-black">JD</div>
+            <div class="space-y-1">
+                <p class="text-[9px] font-black opacity-30 uppercase dark:text-white">J_Dilla <span class="text-red-500 ml-2">GIFTED 💎</span></p>
+                <div class="bg-black/5 dark:bg-white/10 p-3 rounded-2xl rounded-tl-none text-xs font-medium dark:text-gray-200">
+                    Who saw that Ja'Marr trade?? Insane! 🦅
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center py-2">
+            <p class="text-[8px] font-black uppercase tracking-[0.2em] text-amber-500 bg-amber-500/10 inline-block px-3 py-1 rounded-full">User_92 sent a [Golden Hoop] to Rev</p>
+        </div>
+    </div>
+
+    <div class="p-4 border-t border-black/5 dark:border-white/10 bg-white/50 dark:bg-black/20 backdrop-blur-md rounded-b-[2.5rem]">
+        <div class="relative">
+            <input type="text" placeholder="SAY SOMETHING..." class="w-full bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-2xl py-4 pl-5 pr-12 text-[10px] font-black tracking-widest outline-none focus:border-red-600 transition-colors dark:text-white">
+            <button class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-red-600">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+function toggleChat() {
+    const chatWindow = document.getElementById('chatWindow');
+    chatWindow.classList.toggle('translate-y-[120%]');
+    chatWindow.classList.toggle('opacity-0');
+    chatWindow.classList.toggle('pointer-events-none');
+}
+
+// ── PLAYER STATS MODAL ──────────────────────────────────────────────────────
+
+const playerStatsModal = document.createElement('div');
+playerStatsModal.id = 'playerStatsModal';
+playerStatsModal.className = 'fixed inset-0 z-[200] hidden items-center justify-center p-4';
+playerStatsModal.innerHTML = `
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-xl" onclick="closePlayerModal()"></div>
+    <div id="playerModalContainer" class="relative w-full max-w-md bg-white dark:bg-[#0f0f0f] rounded-[2.5rem] overflow-hidden shadow-[0_32px_64px_rgba(0,0,0,0.5)] border border-black/10 dark:border-white/10 scale-95 opacity-0 transition-all duration-300">
+        
+        <button onclick="closePlayerModal()" class="absolute top-5 right-6 text-3xl font-light hover:rotate-90 transition-transform dark:text-white opacity-40 hover:opacity-100 z-10">&times;</button>
+
+        <div id="playerModalHeader" class="p-8 pb-6 border-b border-black/5 dark:border-white/5">
+            <div class="flex items-center gap-5">
+                <div class="relative">
+                    <img id="playerModalHeadshot" src="" alt="" class="w-20 h-20 rounded-2xl object-cover object-top bg-gray-100 dark:bg-neutral-800">
+                    <div id="playerModalTeamBadge" class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center border-2 border-white dark:border-[#0f0f0f] overflow-hidden bg-gray-100">
+                        <img id="playerModalTeamLogo" src="" class="w-6 h-6 object-contain">
+                    </div>
+                </div>
+                <div>
+                    <h3 id="playerModalName" class="text-2xl font-black uppercase tracking-tighter leading-none dark:text-white"></h3>
+                    <p id="playerModalMeta" class="text-[10px] font-bold opacity-40 uppercase tracking-widest mt-1.5 dark:text-white"></p>
+                    <div id="playerModalStatus" class="mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="playerModalBody" class="p-8">
+            <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-amber-500 mb-6">2024–25 Season Averages</h4>
+            <div id="playerStatsGrid" class="grid grid-cols-3 gap-3"></div>
+            <div id="playerModalLoader" class="text-center py-12 text-sm opacity-40 dark:text-white">Loading stats...</div>
+        </div>
+    </div>
+`;
+document.body.appendChild(playerStatsModal);
+
+function openPlayerModal(athleteId, teamAbbr) {
+    const modal = document.getElementById('playerStatsModal');
+    const container = document.getElementById('playerModalContainer');
+
+    // Reset
+    document.getElementById('playerStatsGrid').innerHTML = '';
+    document.getElementById('playerModalLoader').style.display = 'block';
+    document.getElementById('playerModalLoader').innerText = 'Loading stats...';
+    document.getElementById('playerModalName').innerText = '';
+    document.getElementById('playerModalMeta').innerText = '';
+    document.getElementById('playerModalStatus').innerHTML = '';
+    document.getElementById('playerModalHeadshot').src = '';
+    document.getElementById('playerModalTeamLogo').src = '';
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    setTimeout(() => {
+        container.classList.remove('scale-95', 'opacity-0');
+        container.classList.add('scale-100', 'opacity-100');
+    }, 10);
+    document.body.style.overflow = 'hidden';
+
+    fetchPlayerSeasonStats(athleteId, teamAbbr);
+}
+
+function closePlayerModal() {
+    const container = document.getElementById('playerModalContainer');
+    container.classList.add('scale-95', 'opacity-0');
+    setTimeout(() => {
+        document.getElementById('playerStatsModal').classList.add('hidden');
+        document.getElementById('playerStatsModal').classList.remove('flex');
+        document.body.style.overflow = 'auto';
+    }, 300);
+}
+
+async function fetchPlayerSeasonStats(athleteId, teamAbbr) {
+    const color = getSafeTeamColor(teamAbbr);
+    try {
+        const res = await fetch(`https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/athletes/${athleteId}/overview`);
+        const data = await res.json();
+
+        const athlete = data.athlete;
+        const displayName = athlete.displayName || athlete.fullName || 'Unknown';
+        const position = athlete.position?.abbreviation || '';
+        const jersey = athlete.jersey ? `#${athlete.jersey}` : '';
+        const teamName = athlete.team?.displayName || teamAbbr;
+        const headshotUrl = athlete.headshot?.href || `https://a.espncdn.com/i/headshots/nba/players/full/${athleteId}.png`;
+        const teamLogoUrl = athlete.team?.logos?.[0]?.href || `https://a.espncdn.com/i/teamlogos/nba/500/${teamAbbr.toLowerCase()}.png`;
+        const injuryStatus = athlete.injuries?.[0];
+
+        document.getElementById('playerModalName').innerText = displayName;
+        document.getElementById('playerModalMeta').innerText = `${position} · ${jersey} · ${teamName}`;
+        document.getElementById('playerModalHeadshot').src = headshotUrl;
+        document.getElementById('playerModalTeamLogo').src = teamLogoUrl;
+
+        if (injuryStatus) {
+            document.getElementById('playerModalStatus').innerHTML = `
+                <span class="text-[9px] font-black uppercase px-2 py-1 rounded-full" style="background:${color}20; color:${color}">
+                    ⚠ ${injuryStatus.status} – ${injuryStatus.shortComment || injuryStatus.type}
+                </span>`;
+        }
+
+        // Pull season stats from the stats array
+        const statsCategory = data.stats?.find(s => s.type === 'total' || s.type === 'average');
+        const statLabels = data.stats?.[0]?.labels || [];
+        const statValues = data.stats?.[0]?.stats || [];
+
+        // Build a lookup map
+        const statsMap = {};
+        statLabels.forEach((label, i) => { statsMap[label] = statValues[i]; });
+
+        // Prefer averages endpoint as fallback
+        const statDisplays = [
+            { key: 'avgPoints',       label: 'PTS',  fallback: 'points' },
+            { key: 'avgRebounds',     label: 'REB',  fallback: 'rebounds' },
+            { key: 'avgAssists',      label: 'AST',  fallback: 'assists' },
+            { key: 'avgSteals',       label: 'STL',  fallback: 'steals' },
+            { key: 'avgBlocks',       label: 'BLK',  fallback: 'blocks' },
+            { key: 'avgTurnovers',    label: 'TOV',  fallback: 'turnovers' },
+            { key: 'fieldGoalPct',    label: 'FG%',  fallback: 'fieldGoalPct' },
+            { key: 'threePointPct',   label: '3P%',  fallback: 'threePointPct' },
+            { key: 'freeThrowPct',    label: 'FT%',  fallback: 'freeThrowPct' },
+        ];
+
+        // ESPN's athlete overview embeds season stats under data.splits or data.athlete.stats
+        const splits = data.splits?.categories || [];
+        const avgCategory = splits.find(c => c.type === 'perGame' || c.name === 'perGame') || splits[0];
+        const avgStats = avgCategory?.stats || [];
+        const avgMap = {};
+        avgStats.forEach(s => { avgMap[s.name] = s.displayValue ?? s.value; });
+
+        document.getElementById('playerModalLoader').style.display = 'none';
+
+        const grid = document.getElementById('playerStatsGrid');
+        grid.innerHTML = '';
+
+        const featured = [
+            { name: 'points',       label: 'PTS' },
+            { name: 'rebounds',     label: 'REB' },
+            { name: 'assists',      label: 'AST' },
+            { name: 'steals',       label: 'STL' },
+            { name: 'blocks',       label: 'BLK' },
+            { name: 'turnovers',    label: 'TO'  },
+            { name: 'fieldGoalPct', label: 'FG%' },
+            { name: 'threePointPct',label: '3P%' },
+            { name: 'freeThrowPct', label: 'FT%' },
+        ];
+
+        let hasStats = false;
+        featured.forEach(stat => {
+            const val = avgMap[stat.name];
+            if (val !== undefined && val !== null) {
+                hasStats = true;
+                const isPrimary = ['points','rebounds','assists'].includes(stat.name);
+                grid.innerHTML += `
+                    <div class="bg-black/[0.03] dark:bg-white/5 rounded-2xl p-4 border border-black/5 dark:border-white/5 text-center ${isPrimary ? 'col-span-1' : ''}">
+                        <p class="text-[9px] font-black uppercase tracking-widest opacity-40 dark:text-white mb-1">${stat.label}</p>
+                        <p class="text-2xl font-black tracking-tighter" style="color:${isPrimary ? color : 'inherit'}">${parseFloat(val).toFixed(isPrimary ? 1 : (stat.label.includes('%') ? 1 : 1))}</p>
+                    </div>`;
+            }
+        });
+
+        if (!hasStats) {
+            grid.innerHTML = `<div class="col-span-3 text-center py-6 opacity-40 text-sm dark:text-white">No season stats available</div>`;
+        }
+
+    } catch (err) {
+        console.error('Player stats error:', err);
+        document.getElementById('playerModalLoader').innerText = 'Could not load stats. ESPN API may be unavailable.';
+    }
+}
+
+// ── PATCH BOX SCORE TO MAKE PLAYER NAMES CLICKABLE ──────────────────────────
+
+// Override the box score renderer to inject clickable names
+const _origOpenGameModal = openGameModal;
+window.openGameModal = async function(gameId) {
+    await _origOpenGameModal(gameId);
+    // After modal data loads, patch player names
+    setTimeout(patchPlayerNames, 800);
+};
+
+function patchPlayerNames() {
+    const tbody = document.getElementById('modalBoxScoreBody');
+    if (!tbody) return;
+    const rows = tbody.querySelectorAll('tr');
+    rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        if (cells.length < 3) return;
+        const nameCell = cells[0];
+        const teamCell = cells[1];
+        const name = nameCell.innerText.trim();
+        const teamAbbr = teamCell.innerText.trim();
+        if (!name || name.length < 2 || !teamAbbr) return;
+        // Look up athlete ID from our cached game data
+        const athleteId = window._athleteIdMap?.[name];
+        if (athleteId) {
+            nameCell.innerHTML = `<button onclick="openPlayerModal('${athleteId}','${teamAbbr}')" class="font-bold hover:underline text-left transition-colors hover:text-amber-500 dark:text-white">${name}</button>`;
+        }
+    });
+}
+
+// ── PATCH openGameModal TO BUILD ATHLETE ID MAP ───────────────────────────────
+
+const __origFetch = window.openGameModal;
+window._athleteIdMap = {};
+
+// We intercept the summary data to harvest athlete IDs
+const _origOpen = openGameModal;
+window.openGameModal = async function(gameId) {
+    window._athleteIdMap = {};
+    try {
+        const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/summary?event=${gameId}`);
+        const data = await res.json();
+        // Build athlete ID map from boxscore
+        data.boxscore?.players?.forEach(teamGroup => {
+            teamGroup.statistics?.forEach(statSet => {
+                statSet.athletes?.forEach(p => {
+                    if (p.athlete?.displayName && p.athlete?.id) {
+                        window._athleteIdMap[p.athlete.displayName] = p.athlete.id;
+                    }
+                });
+            });
+        });
+    } catch(e) {}
+    await _origOpenGameModal(gameId);
+    setTimeout(patchPlayerNames, 900);
+};
+</script>
+
+</body>
+</html>
