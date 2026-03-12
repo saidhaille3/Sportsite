@@ -1,109 +1,787 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>iPhone Space Test</title>
-  
-  <script src="https://unpkg.com/livekit-client/dist/livekit-client.umd.min.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-900 text-white flex flex-col items-center p-10 min-h-screen">
-  
-  <h1 class="text-2xl font-bold mb-6">Twitter Space Test</h1>
-  
-  <button id="join-btn" onclick="startSpace()" class="bg-blue-600 active:bg-blue-800 px-10 py-4 rounded-full font-bold text-xl shadow-xl">
-    Start Space
-  </button>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spaces</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
-  <div id="debug-log" class="mt-10 w-full max-w-md p-4 bg-black border border-gray-700 rounded font-mono text-xs overflow-y-auto h-40">
-    <p class="text-gray-500">> System Ready. Tap Start.</p>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9f9f7;
+      --surface: #ffffff;
+      --border: #e8e8e4;
+      --text: #111110;
+      --muted: #8a8a85;
+      --accent: #111110;
+      --live-red: #e63b2e;
+      --radius: 10px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      margin-bottom: 6px;
+    }
+
+    .page-sub {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    /* Create space */
+    .create-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 28px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .create-card input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      outline: none;
+    }
+
+    .create-card input:focus { border-color: #bbb; }
+
+    .btn {
+      padding: 10px 18px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      font-size: 13.5px;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn:hover { opacity: 0.75; }
+    .btn.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    /* Spaces list */
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .space-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .space-card:hover { border-color: #bbb; }
+
+    .space-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .space-name {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+    }
+
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      color: var(--live-red);
+      background: #fdf0ef;
+      border: 1px solid #f5c5c2;
+      padding: 3px 9px;
+      border-radius: 99px;
+    }
+
+    .live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--live-red);
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .space-meta {
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* Room view */
+    .room-view { display: none; }
+    .room-view.active { display: block; }
+    .spaces-list.hidden { display: none; }
+
+    .room-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .back-btn {
+      width: 34px; height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .room-title { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
+
+    /* Speakers grid */
+    .speakers-section { margin-bottom: 24px; }
+    .speakers-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .speaker-bubble {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      width: 72px;
+    }
+
+    .speaker-avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      position: relative;
+    }
+
+    .speaker-avatar.speaking {
+      box-shadow: 0 0 0 3px var(--live-red);
+    }
+
+    .speaker-avatar .mic-off {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 18px; height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+
+    .speaker-name {
+      font-size: 11.5px;
+      font-weight: 500;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .speaker-role {
+      font-size: 10px;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* Listeners */
+    .listeners-section { margin-bottom: 24px; }
+    .listeners-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .listener-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* Controls */
+    .room-controls {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .control-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      cursor: pointer;
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .control-btn:hover { border-color: #bbb; color: var(--text); }
+    .control-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+    .control-btn.danger { border-color: #f5c5c2; color: var(--live-red); }
+    .control-btn.danger:hover { background: #fdf0ef; }
+
+    /* Requests */
+    .request-banner {
+      background: #fdf0ef;
+      border: 1px solid #f5c5c2;
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      display: none;
+    }
+
+    .request-banner.visible { display: flex; }
+    .request-text { font-size: 13.5px; color: var(--text); }
+    .request-actions { display: flex; gap: 8px; }
+    .request-actions button {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      border: none;
+    }
+
+    .approve-btn { background: var(--text); color: #fff; }
+    .deny-btn { background: var(--border); color: var(--text); }
+
+    /* Modal */
+    .modal-bg {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100; padding: 20px;
+    }
+    .modal-bg.hidden { display: none; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      width: 100%; max-width: 360px;
+    }
+    .modal h2 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+    .modal p { font-size: 13.5px; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+    .modal input {
+      width: 100%; border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 14px; font-family: 'DM Sans', sans-serif;
+      outline: none; margin-bottom: 12px;
+    }
+    .modal input:focus { border-color: #aaa; }
+    .modal button {
+      width: 100%; padding: 11px;
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 8px;
+      font-size: 14px; font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 14px 16px; }
+      .page { padding: 16px; }
+      .control-btn { padding: 8px 10px; font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Username Modal -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h2>Enter your name</h2>
+    <p>Choose a name to join or create a Space.</p>
+    <input type="text" id="nameInput" placeholder="Your name" maxlength="24" />
+    <button onclick="setUsername()">Continue</button>
+  </div>
+</div>
+
+<header>
+  <a class="logo" href="#">YourBrand</a>
+</header>
+
+<div class="page">
+
+  <!-- Spaces List -->
+  <div class="spaces-list" id="spacesList">
+    <div class="page-title">Spaces</div>
+    <div class="page-sub">Join a live audio room or start your own.</div>
+
+    <div class="create-card">
+      <input type="text" id="spaceNameInput" placeholder="Name your Space…" maxlength="60" />
+      <button class="btn" onclick="createSpace()">Start Space</button>
+    </div>
+
+    <div class="section-label">Live now</div>
+    <div id="spacesContainer">
+      <div style="font-size:13px;color:var(--muted);padding:20px 0;font-family:'DM Mono',monospace;">No spaces live right now</div>
+    </div>
   </div>
 
+  <!-- Room View -->
+  <div class="room-view" id="roomView">
+    <div class="room-header">
+      <button class="back-btn" onclick="leaveRoom()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 5l-7 7 7 7"/>
+        </svg>
+      </button>
+      <div>
+        <div class="room-title" id="roomTitle">Space Name</div>
+        <div style="font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;" id="roomMeta">0 listeners</div>
+      </div>
+    </div>
+
+    <!-- Request to speak banner (host sees this) -->
+    <div class="request-banner" id="requestBanner">
+      <span class="request-text" id="requestText">Someone wants to speak</span>
+      <div class="request-actions">
+        <button class="approve-btn" onclick="approveRequest()">Allow</button>
+        <button class="deny-btn" onclick="denyRequest()">Deny</button>
+      </div>
+    </div>
+
+    <!-- Speakers -->
+    <div class="speakers-section">
+      <div class="section-label">Speakers</div>
+      <div class="speakers-grid" id="speakersGrid"></div>
+    </div>
+
+    <!-- Listeners -->
+    <div class="listeners-section">
+      <div class="section-label">Listeners</div>
+      <div class="listeners-grid" id="listenersGrid"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="room-controls">
+      <button class="control-btn" id="micBtn" onclick="toggleMic()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/>
+          <line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+        Mic
+      </button>
+
+      <button class="control-btn" id="raiseBtn" onclick="raiseHand()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/>
+          <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/>
+          <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/>
+          <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+        </svg>
+        Raise Hand
+      </button>
+
+      <button class="control-btn danger" onclick="leaveRoom()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Leave
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/livekit-client/dist/livekit-client.umd.min.js"></script>
 <script>
-  // This helper function puts text into that black box on your screen
-  function log(msg, color = "text-white") {
-    const logger = document.getElementById('debug-log');
-    if (logger) {
-      const p = document.createElement('p');
-      p.className = color;
-      p.innerText = `> ${msg}`;
-      logger.appendChild(p);
-      logger.scrollTop = logger.scrollHeight;
+  const BACKEND = 'https://sportsite-79ty.onrender.com';
+  const AVATAR_COLORS = ['#3b82f6','#8b5cf6','#ec4899','#f97316','#10b981','#ef4444','#f59e0b','#06b6d4'];
+
+  let username = '';
+  let currentRoom = null;
+  let livekitRoom = null;
+  let isSpeaker = false;
+  let micEnabled = false;
+  let handRaised = false;
+  let isHost = false;
+  let pendingRequest = null;
+  let pollInterval = null;
+
+  function colorFor(name) {
+    let h = 0;
+    for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h);
+    return AVATAR_COLORS[Math.abs(h) % AVATAR_COLORS.length];
+  }
+
+  function setUsername() {
+    const val = document.getElementById('nameInput').value.trim();
+    if (!val) return;
+    username = val;
+    document.getElementById('modalBg').classList.add('hidden');
+    loadSpaces();
+  }
+
+  document.getElementById('nameInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') setUsername();
+  });
+
+  // ── Load spaces list ──
+  async function loadSpaces() {
+    try {
+      const res = await fetch(`${BACKEND}/api/spaces`);
+      const data = await res.json();
+      renderSpaces(data.spaces || []);
+    } catch {
+      renderSpaces([]);
     }
   }
 
-  // This runs the moment the page finishes loading
-  window.onload = () => {
-    // We check three different places where the SDK might be hiding
-    const sdk = window.LiveKitClient || window.livekit || (window.LiveKit && window.LiveKit.LiveKitClient);
-    
-    if (sdk) {
-      log("LiveKit SDK found! Ready to go. ✅", "text-green-400");
-    } else {
-      log("SDK still missing. Try refreshing or changing Wi-Fi. ❌", "text-red-500");
-    }
-  };
-
-  async function startSpace() {
-    log("Button clicked...");
-    const joinBtn = document.getElementById('join-btn');
-    
-    // Look for the SDK again right when the button is clicked
-    const lk = window.LiveKitClient || window.livekit;
-
-    if (!lk) {
-      log("FATAL: SDK not loaded. Can't start.", "text-red-500");
-      alert("The LiveKit library didn't load. Are you on a school/work Wi-Fi?");
+  function renderSpaces(spaces) {
+    const container = document.getElementById('spacesContainer');
+    if (!spaces.length) {
+      container.innerHTML = '<div style="font-size:13px;color:var(--muted);padding:20px 0;font-family:\'DM Mono\',monospace;">No spaces live right now</div>';
       return;
     }
+    container.innerHTML = spaces.map(s => `
+      <div class="space-card" onclick="joinSpace('${s.id}', '${escHtml(s.name)}', false)">
+        <div class="space-top">
+          <span class="space-name">${escHtml(s.name)}</span>
+          <span class="live-badge"><span class="live-dot"></span>Live</span>
+        </div>
+        <div class="space-meta">${s.speakerCount} speaker${s.speakerCount !== 1 ? 's' : ''} · ${s.listenerCount} listener${s.listenerCount !== 1 ? 's' : ''}</div>
+      </div>
+    `).join('');
+  }
 
+  // ── Create space ──
+  async function createSpace() {
+    const name = document.getElementById('spaceNameInput').value.trim();
+    if (!name || !username) return;
     try {
-      const { Room, RoomEvent, TokenSource } = lk;
-      const SANDBOX_ID = "lithouse-spaces-2amvdi"; 
-
-      log("Initializing Room...");
-      joinBtn.innerText = "Connecting...";
-      joinBtn.disabled = true;
-
-      const room = new Room({
-        adaptiveStream: true, // Optimizes for mobile data
-        dynacast: true,
+      const res = await fetch(`${BACKEND}/api/spaces/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, hostName: username })
       });
-
-      log("Fetching Token from Sandbox...");
-      const tokenSource = TokenSource.sandboxTokenServer(SANDBOX_ID);
-      const { serverUrl, participantToken } = await tokenSource.fetch({ 
-          roomName: "lithouse-test",
-          participantName: "iPhone-" + Math.floor(Math.random() * 100)
-      });
-
-      log("Connecting to server...");
-      await room.connect(serverUrl, participantToken);
-      
-      log("Connected! Turning on Mic...");
-      await room.localParticipant.setMicrophoneEnabled(true);
-      
-      log("YOU ARE LIVE! 🎙️", "text-green-400");
-      joinBtn.innerText = "LIVE (Tap to Stop)";
-      joinBtn.classList.replace('bg-blue-600', 'bg-red-600');
-
-      // Listen for other people's voices
-      room.on(RoomEvent.TrackSubscribed, (track) => {
-        if (track.kind === 'audio') {
-          log("Heard someone else!");
-          const el = track.attach();
-          document.body.appendChild(el);
-          el.play().catch(e => log("Audio play error: " + e.message));
-        }
-      });
-
-    } catch (err) {
-      log("ERROR: " + err.message, "text-red-500");
-      joinBtn.disabled = false;
-      joinBtn.innerText = "Start Space";
+      const data = await res.json();
+      joinSpace(data.spaceId, name, true, data.token);
+    } catch (e) {
+      alert('Could not create space. Try again.');
     }
   }
+
+  // ── Join space ──
+  async function joinSpace(spaceId, spaceName, asHost, existingToken) {
+    currentRoom = spaceId;
+    isHost = asHost;
+    isSpeaker = asHost;
+
+    document.getElementById('spacesList').classList.add('hidden');
+    document.getElementById('roomView').classList.add('active');
+    document.getElementById('roomTitle').textContent = spaceName;
+
+    let token = existingToken;
+    if (!token) {
+      try {
+        const res = await fetch(`${BACKEND}/api/spaces/join`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ spaceId, username, asSpeaker: false })
+        });
+        const data = await res.json();
+        token = data.token;
+      } catch {
+        alert('Could not join space.');
+        return;
+      }
+    }
+
+    // Connect to Livekit
+    livekitRoom = new LivekitClient.Room();
+await livekitRoom.connect('wss://sports-spaces-8zg8sbky.livekit.cloud', token);
+
+    livekitRoom.on(LivekitClient.RoomEvent.ParticipantConnected, updateParticipants);
+    livekitRoom.on(LivekitClient.RoomEvent.ParticipantDisconnected, updateParticipants);
+    livekitRoom.on(LivekitClient.RoomEvent.TrackMuted, updateParticipants);
+    livekitRoom.on(LivekitClient.RoomEvent.TrackUnmuted, updateParticipants);
+    livekitRoom.on(LivekitClient.RoomEvent.DataReceived, handleData);
+
+    if (asHost) {
+      await livekitRoom.localParticipant.setMicrophoneEnabled(true);
+      micEnabled = true;
+      document.getElementById('micBtn').classList.add('active');
+    }
+
+    updateParticipants();
+    updateControls();
+
+    pollInterval = setInterval(pollRoom, 4000);
+  }
+
+  function getLivekitUrl() {
+    // This comes from your LIVEKIT_URL env var via the token
+    return livekitRoom.url || '';
+  }
+
+  function updateParticipants() {
+    if (!livekitRoom) return;
+
+    const speakers = [];
+    const listeners = [];
+
+    // Local participant
+    const local = livekitRoom.localParticipant;
+    const localHasMic = local.audioTrackPublications.size > 0;
+    if (localHasMic || isHost) {
+      speakers.push({ name: username + ' (you)', isSpeaking: local.isSpeaking, micOff: !micEnabled, isYou: true });
+    } else {
+      listeners.push({ name: username });
+    }
+
+    // Remote participants
+    livekitRoom.remoteParticipants.forEach(p => {
+      const hasMic = p.audioTrackPublications.size > 0;
+      if (hasMic) {
+        speakers.push({ name: p.identity, isSpeaking: p.isSpeaking, micOff: false });
+      } else {
+        listeners.push({ name: p.identity });
+      }
+    });
+
+    renderSpeakers(speakers);
+    renderListeners(listeners);
+
+    document.getElementById('roomMeta').textContent = `${listeners.length} listener${listeners.length !== 1 ? 's' : ''}`;
+  }
+
+  function renderSpeakers(speakers) {
+    document.getElementById('speakersGrid').innerHTML = speakers.map(s => `
+      <div class="speaker-bubble">
+        <div class="speaker-avatar ${s.isSpeaking ? 'speaking' : ''}" style="background:${colorFor(s.name)}">
+          ${s.name[0].toUpperCase()}
+          ${s.micOff ? '<span class="mic-off">🔇</span>' : ''}
+        </div>
+        <div class="speaker-name">${escHtml(s.name)}</div>
+        <div class="speaker-role">${s.isYou && isHost ? 'host' : 'speaker'}</div>
+      </div>
+    `).join('');
+  }
+
+  function renderListeners(listeners) {
+    document.getElementById('listenersGrid').innerHTML = listeners.map(l => `
+      <div class="listener-avatar" style="background:${colorFor(l.name)}" title="${escHtml(l.name)}">
+        ${l.name[0].toUpperCase()}
+      </div>
+    `).join('');
+  }
+
+  // ── Controls ──
+  async function toggleMic() {
+    if (!livekitRoom || !isSpeaker) return;
+    micEnabled = !micEnabled;
+    await livekitRoom.localParticipant.setMicrophoneEnabled(micEnabled);
+    document.getElementById('micBtn').classList.toggle('active', micEnabled);
+    updateParticipants();
+  }
+
+  async function raiseHand() {
+    if (isSpeaker || !livekitRoom) return;
+    handRaised = !handRaised;
+    document.getElementById('raiseBtn').classList.toggle('active', handRaised);
+
+    // Send raise hand signal via data channel
+    const msg = JSON.stringify({ type: 'raise_hand', username, raised: handRaised });
+    await livekitRoom.localParticipant.publishData(new TextEncoder().encode(msg), { reliable: true });
+  }
+
+  function handleData(payload) {
+    const msg = JSON.parse(new TextDecoder().decode(payload));
+    if (msg.type === 'raise_hand' && isHost) {
+      if (msg.raised) {
+        pendingRequest = msg.username;
+        document.getElementById('requestText').textContent = `${msg.username} wants to speak`;
+        document.getElementById('requestBanner').classList.add('visible');
+      }
+    }
+    if (msg.type === 'promote' && msg.username === username) {
+      becomeSpeaker();
+    }
+  }
+
+  async function approveRequest() {
+    if (!pendingRequest || !livekitRoom) return;
+    document.getElementById('requestBanner').classList.remove('visible');
+
+    // Send promote signal
+    const msg = JSON.stringify({ type: 'promote', username: pendingRequest });
+    await livekitRoom.localParticipant.publishData(new TextEncoder().encode(msg), { reliable: true });
+
+    // Also call backend to issue new speaker token
+    await fetch(`${BACKEND}/api/spaces/promote`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ spaceId: currentRoom, username: pendingRequest })
+    });
+
+    pendingRequest = null;
+  }
+
+  function denyRequest() {
+    pendingRequest = null;
+    document.getElementById('requestBanner').classList.remove('visible');
+  }
+
+  async function becomeSpeaker() {
+    isSpeaker = true;
+    handRaised = false;
+    document.getElementById('raiseBtn').classList.remove('active');
+
+    // Get speaker token
+    const res = await fetch(`${BACKEND}/api/spaces/join`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ spaceId: currentRoom, username, asSpeaker: true })
+    });
+    const data = await res.json();
+
+    // Reconnect as speaker
+    await livekitRoom.disconnect();
+await livekitRoom.connect('wss://sports-spaces-8zg8sbky.livekit.cloud', data.token);
+await livekitRoom.localParticipant.setMicrophoneEnabled(true);
+    micEnabled = true;
+    document.getElementById('micBtn').classList.add('active');
+    updateParticipants();
+    updateControls();
+  }
+
+  function updateControls() {
+    document.getElementById('micBtn').style.display = isSpeaker ? 'flex' : 'none';
+    document.getElementById('raiseBtn').style.display = isSpeaker ? 'none' : 'flex';
+  }
+
+  async function leaveRoom() {
+    if (livekitRoom) {
+      await livekitRoom.disconnect();
+      livekitRoom = null;
+    }
+    if (pollInterval) clearInterval(pollInterval);
+    currentRoom = null;
+    isHost = false;
+    isSpeaker = false;
+    micEnabled = false;
+    handRaised = false;
+
+    document.getElementById('roomView').classList.remove('active');
+    document.getElementById('spacesList').classList.remove('hidden');
+    loadSpaces();
+  }
+
+  async function pollRoom() {
+    if (!currentRoom) return;
+    try {
+      const res = await fetch(`${BACKEND}/api/spaces/${currentRoom}`);
+      const data = await res.json();
+      document.getElementById('roomMeta').textContent = `${data.listenerCount} listener${data.listenerCount !== 1 ? 's' : ''}`;
+    } catch {}
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // Start
+  loadSpaces();
 </script>
 </body>
 </html>
